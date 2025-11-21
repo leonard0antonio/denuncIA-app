@@ -1,22 +1,10 @@
-import styled from "styled-components";
-import GlobalStyle from "./styles/global";
-import Home from "./pages/Home";
+import Layout from "./component/Layout";
+import Router from "./routes/Router";
 
-const Container = styled.div`
-  width: 100%;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background: #f3f3f3;
-`;
-
-function App() {
+export default function App() {
   return (
-    <Container>
-      <GlobalStyle />
-      <Home />
-    </Container>
+    <Layout>
+      <Router />
+    </Layout>
   );
 }
-
-export default App;

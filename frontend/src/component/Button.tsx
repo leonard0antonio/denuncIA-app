@@ -1,20 +1,17 @@
 import styled from "styled-components";
-import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
-const Btn = styled(motion.button)`
+const StyledButton = styled.button`
   padding: 10px 16px;
-  border: none;
   background: #0066ff;
   color: white;
+  border: none;
   border-radius: 6px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 14px;
 `;
 
-export default function Button({ children, ...props }) {
-  return (
-    <Btn whileTap={{ scale: 0.95 }} {...props}>
-      {children}
-    </Btn>
-  );
-}
+export const Button = ({ to, children }: { to?: string; children: React.ReactNode }) => {
+  if (to) return <Link to={to}><StyledButton>{children}</StyledButton></Link>;
+  return <StyledButton>{children}</StyledButton>;
+};

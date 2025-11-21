@@ -1,35 +1,31 @@
-import { useEffect, useState } from "react";
-import api from "../../api/client";
-import Layout from "../../component/Layout";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
+// src/pages/reports/ReportList.tsx
+import React, { useEffect, useState } from 'react';
+import Layout from '../../component/Layout';
+import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
-const Card = styled(Link)`
-  display: block;
-  padding: 16px;
-  margin-bottom: 14px;
-  border-radius: 8px;
-  background: white;
-  border: 1px solid #ddd;
-  text-decoration: none;
-  color: #333;
-`;
+const Card = styled.div`background: var(--card); padding:12px; border-radius:8px; margin-bottom:12px;`;
 
 export default function ReportList() {
-  const [reports, setReports] = useState([]);
+  const [data,setData] = useState<any[]>([]);
 
-  useEffect(() => {
-    api.get("/reports/").then((r) => setReports(r.data));
-  }, []);
+  useEffect(()=> {
+    const arr = JSON.parse(localStorage.getItem('denuncias') || '[]');
+    setData(arr.reverse());
+  },[]);
 
   return (
     <Layout>
-      <h1>Denúncias</h1>
-      {reports.map((rep: any) => (
-        <Card key={rep.id} to={`/reports/${rep.id}`}>
-          <strong>{rep.title}</strong>
-          <p>{rep.description}</p>
-        </Card>
+      <h2>Denúncias (locais)</h2>
+      {data.length === 0 && <p>Nenhuma denúncia criada localmente.</p>}
+      {data.map(d=> (
+        <Link key={d.id} to={`/reports/${d.id}`} style={{textDecoration:'none'}}>
+          <Card>
+            <strong>{d.title}</strong>
+            <p style={{color:'var(--muted)'}}>{d.description}</p>
+            <small>Protocolo: {d.protocol}</small>
+          </Card>
+        </Link>
       ))}
     </Layout>
   );

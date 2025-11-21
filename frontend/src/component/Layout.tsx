@@ -1,16 +1,17 @@
-import type { ReactNode } from "react";
-import Header from "./Header";
-import styled from "styled-components";
+import React, { type ReactNode } from 'react';
+import Header from './Header';
+import styled from 'styled-components';
 
 const Wrapper = styled.div`
-  width: 100%;
-  padding: 20px;
+  max-width: 1100px;
+  margin: 24px auto;
+  padding: 12px;
 `;
 
-export default function Layout({ children }: { children: ReactNode }) {
+export default function Layout({ children, toggleTheme, isDark }: { children: ReactNode, toggleTheme?: ()=>void, isDark?: boolean }) {
   return (
     <>
-      <Header />
+      <Header toggleTheme={toggleTheme || (()=>{})} isDark={!!isDark} />
       <Wrapper>{children}</Wrapper>
     </>
   );

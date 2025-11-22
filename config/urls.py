@@ -15,8 +15,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from denuncIA.views import CreateUserView
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("denuncia/user/register/", CreateUserView.as_view(), name="cadastro"),
+    path("denuncia/token/", TokenObtainPairView.as_view(), name="get_token"),
+    path("denuncia/token/refresh", TokenRefreshView.as_view(), name="refresh_token"),
+    path("api-auth/", include("rest_framework.urls"))
+    
 ]

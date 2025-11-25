@@ -74,28 +74,6 @@ Durante esse desenvolvimento parcial, você provavelmente já adquiriu ou está 
 
 ---
 
-## 🚀 Como rodar localmente
-
-1. Clone o repositório:  
-   ```bash
-   git clone https://github.com/leonard0antonio/denuncIA-app.git
-````
-
-2. **Backend (Django):**
-
-   * Vá para a pasta do backend
-   * Instale dependências (ex: `pip install -r requirements.txt`)
-   * Rode migrações: `python manage.py migrate`
-   * Inicie o servidor: `python manage.py runserver`
-3. **Frontend:**
-
-   * Vá para a pasta do frontend
-   * Rode: `npm install`
-   * Inicie o dev server: `npm run dev`
-4. Abra o navegador e acesse os endereços correspondentes (ex: `http://localhost:3000` para o front e `http://localhost:8000` para o backend).
-
----
-
 ## 🔍 Funcionalidades em Desenvolvimento
 
 * Formulário para criar denúncias
@@ -121,6 +99,26 @@ Durante esse desenvolvimento parcial, você provavelmente já adquiriu ou está 
 * Implementar filtros / status de denúncia
 * Adicionar sistema de notificações
 * Fazer deploy para produção
+
+## 🚀 Como rodar localmente
+
+1. Clone o repositório:  
+   ```bash
+   git clone https://github.com/leonard0antonio/denuncIA-app.git
+```
+
+2. **Backend (Django):**
+
+   * Vá para a pasta do backend
+   * Instale dependências (ex: `pip install -r requirements.txt`)
+   * Rode migrações: `python manage.py migrate`
+   * Inicie o servidor: `python manage.py runserver`
+3. **Frontend:**
+
+   * Vá para a pasta do frontend
+   * Rode: `npm install`
+   * Inicie o dev server: `npm run dev`
+4. Abra o navegador e acesse os endereços correspondentes (ex: `http://localhost:3000` para o front e `http://localhost:8000` para o backend).
 
 ---
 

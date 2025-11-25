@@ -1,13 +1,9 @@
-Beleza! Aqui está uma **descrição do projeto** + um **README.md estilizado com emojis**, para seu repositório `denuncIA-app` (branch `dev`), considerando que o front roda com `npm run dev` e o back com Django.
-
----
-
 ## 🧠 Descrição do Projeto — denuncIA-app
 
 ### Introdução
 
 * **Nome do projeto:** *denuncIA-app*
-* **Contexto:** Projeto em desenvolvimento, atualmente na branch `dev`, que conecta frontend moderno com backend Django para gerenciar denúncias / report de conteúdo ou casos (ou algo similar — “denuncIA” pode sugerir um app de denúncia + IA, dependendo do seu plano).
+* **Contexto:** Projeto em desenvolvimento, atualmente na branch `dev`, que conecta frontend moderno com backend Django para gerenciar denúncias / report de conteúdo ou casos.
 * **Objetivo principal:** Construir uma aplicação full-stack onde usuários possam fazer denúncias através da interface (frontend), e um backend robusto (Django) gerencia, armazena e possivelmente processa essas denúncias.
 * **Motivação / Experiência:**
 
@@ -18,8 +14,6 @@ Beleza! Aqui está uma **descrição do projeto** + um **README.md estilizado co
 ---
 
 ## ⚙️ Principais Funcionalidades do Projeto
-
-Embora o projeto ainda esteja incompleto, estas são algumas das funcionalidades implementadas ou planejadas até agora:
 
 1. **Frontend React / JavaScript**
 
@@ -51,9 +45,9 @@ Embora o projeto ainda esteja incompleto, estas são algumas das funcionalidades
 
 * **Python** — para o backend com Django.
 * **Django** — framework web MVC, usado para construir a API e a lógica de backend.
-* **JavaScript / TypeScript (dependendo)** — para o frontend do projeto, rodando via `npm`.
+* **JavaScript / TypeScript ** — para o frontend do projeto, rodando via `npm`.
 * **Node.js / npm** — para gerenciar dependências do frontend.
-* **React (ou similar)** — presumido, já que se usa `npm run dev` para front (ou pode ser outro framework JS, dependendo do seu setup).
+* **React ** — presumido, já que se usa `npm run dev` para front (ou pode ser outro framework JS, dependendo do seu setup).
 * **Django REST Framework** (possível, se você está criando APIs REST no Django).
 * **Banco de dados** — algum banco configurado no Django (SQLite, Postgres, etc, dependendo de seu ambiente).
 * **Git / GitHub** — para versionamento de código e colaboração.
@@ -62,7 +56,7 @@ Embora o projeto ainda esteja incompleto, estas são algumas das funcionalidades
 
 ## 🖼️ Capturas de Tela do Projeto
 
-* Como o projeto ainda está em desenvolvimento, pode não haver muitas **screenshots prontas** no repositório (depende do que você já subiu).
+* Como o projeto ainda está em desenvolvimento, pode não haver muitas **screenshots prontas** no repositório.
 * Visual estimado: uma interface moderna de formulário, com campos para denúncia, botões de envio, mensagens de erro/sucesso.
 * No backend, a parte administrativa do Django (se usada) poderia ter a típica interface de admin padrão, com CRUD de denúncias.
 
@@ -77,7 +71,6 @@ Durante esse desenvolvimento parcial, você provavelmente já adquiriu ou está 
 * 🧪 **Desenvolvimento em paralelo**: rodar servidor Django e servidor de dev JS juntos.
 * 💾 **Modelagem de dados no Django**: criar modelos para denúncias, talvez usuários, status, etc.
 * 🧰 **Gerenciamento de estado e formulários no frontend**: lidar com inputs, validação e envio.
-* 📈 **Planejamento para futuras features**: autenticação, filtros, dashboard, notificações.
 
 ---
 

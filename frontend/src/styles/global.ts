@@ -1,34 +1,31 @@
 import { createGlobalStyle } from "styled-components";
 
-// 1. Definimos o formato que nosso tema tem
-interface MyTheme {
-  bg: string;
-  card: string;
-  text: string;
-  primary: string;
-  muted: string;
-}
+export const GlobalStyle = createGlobalStyle`
+  :root{
+    --bg: #f7f9fc;
+    --card: #ffffff;
+    --text: #0f172a;
+    --primary: #0b5cff;
+    --muted: #6b7280;
+  }
 
-// 2. Passamos esse tipo para o createGlobalStyle
-// O TypeScript agora entende que 'props' contém uma propriedade 'theme' com o formato acima
-const GlobalStyle = createGlobalStyle<{ theme: MyTheme }>`
-  :root {
-    --bg: ${(props) => props.theme.bg};
-    --card: ${(props) => props.theme.card};
-    --text: ${(props) => props.theme.text};
-    --primary: ${(props) => props.theme.primary};
-    --muted: ${(props) => props.theme.muted};
+  body.dark {
+    --bg: #0f1724;
+    --card: #0b1320;
+    --text: #e6eef8;
+    --primary: #3aa0ff;
+    --muted: #94a3b8;
   }
 
   body {
-    margin: 0;
-    padding: 0;
     background: var(--bg);
     color: var(--text);
-    font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Arial;
-    overflow-x: hidden;
-    transition: background 0.2s ease-in, color 0.2s ease-in;
+    transition: background .25s, color .25s;
+  }
+
+  .app-container {
+    max-width: 1100px;
+    margin: 24px auto;
+    padding: 16px;
   }
 `;
-
-export default GlobalStyle;

@@ -1,32 +1,41 @@
-// src/pages/reports/ReportList.tsx
-import React, { useEffect, useState } from 'react';
-import Layout from '../../component/Layout';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-
-const Card = styled.div`background: var(--card); padding:12px; border-radius:8px; margin-bottom:12px;`;
+import { useEffect, useState } from "react";
+import Layout from "../../component/Layout";
+import {
+  Wrapper,
+  Title,
+  Empty,
+  ItemLink,
+  Card,                           
+  CardTitle,
+  CardDesc,
+  Protocol,
+} from "../../styles/ReportList.Styles";
 
 export default function ReportList() {
-  const [data,setData] = useState<any[]>([]);
+  const [data, setData] = useState<any[]>([]);
 
-  useEffect(()=> {
-    const arr = JSON.parse(localStorage.getItem('denuncias') || '[]');
+  useEffect(() => {
+    const arr = JSON.parse(localStorage.getItem("denuncias") || "[]");
     setData(arr.reverse());
-  },[]);
+  }, []);
 
   return (
     <Layout>
-      <h2>Denúncias (locais)</h2>
-      {data.length === 0 && <p>Nenhuma denúncia criada localmente.</p>}
-      {data.map(d=> (
-        <Link key={d.id} to={`/reports/${d.id}`} style={{textDecoration:'none'}}>
-          <Card>
-            <strong>{d.title}</strong>
-            <p style={{color:'var(--muted)'}}>{d.description}</p>
-            <small>Protocolo: {d.protocol}</small>
-          </Card>
-        </Link>
-      ))}
+      <Title>Denúncias locais</Title>
+
+      {data.length === 0 && <Empty>Nenhuma denúncia local.</Empty>}
+
+      <Wrapper>
+        {data.map((d) => (
+          <ItemLink key={d.id} to={`/reports/${d.id}`}>
+            <Card>
+              <CardTitle>{d.title}</CardTitle>
+              <CardDesc>{d.description}</CardDesc>
+              <Protocol>Protocolo: {d.protocol}</Protocol>
+            </Card>
+          </ItemLink>
+        ))}
+      </Wrapper>
     </Layout>
   );
 }

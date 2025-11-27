@@ -1,3 +1,4 @@
+// --- EXISTENTES (não alterei nada) ---
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
@@ -35,7 +36,7 @@ export const Card = styled.div`
 
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 10px;
 
   &:hover {
     background: var(--hover);
@@ -61,4 +62,49 @@ export const Protocol = styled.small`
   margin-top: 5px;
   color: var(--primary);
   font-weight: 600;
+`;
+
+export const IconRow = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 12px;
+`;
+
+export const CardIcon = styled.div`
+  background: var(--primary);
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+`;
+
+// --- 🔥 AQUI COMEÇA O NOVO PARA EDITAR/EXCLUIR ---
+
+export const Actions = styled.div`
+  display: flex;
+  gap: 12px;
+  margin-top: 4px;
+`;
+
+export const ActionBtn = styled.button<{ danger?: boolean }>`
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  color: #fff;
+
+  background: ${({ danger }) => (danger ? "var(--danger)" : "var(--primary)")};
+  transition: 0.2s ease;
+
+  &:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+  }
 `;

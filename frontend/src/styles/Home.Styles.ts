@@ -63,7 +63,7 @@ export const ActionButton = styled.button`
   transition: 0.2s;
 
   &:hover {
-    background: var(--primary-hover);
+    background: #0056b3;
     transform: translateY(-2px);
     box-shadow: 0 3px 10px rgba(0,0,0,0.12);
   }

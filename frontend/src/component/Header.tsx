@@ -1,14 +1,14 @@
-import { 
+import {
   Bar,
   Nav,
   LeftGroup,
   NavLink,
-  ThemeButton
+  ThemeButton,
 } from "../styles/Header.styles";
 
 export default function Header({
   toggleTheme,
-  isDark
+  isDark,
 }: {
   toggleTheme: () => void;
   isDark: boolean;
@@ -16,7 +16,9 @@ export default function Header({
   return (
     <Bar>
       <LeftGroup>
-        <NavLink to="/" style={{ fontWeight: 700 }}>DenuncIA</NavLink>
+        <NavLink to="/" style={{ fontWeight: 700 }}>
+          DenuncIA
+        </NavLink>
         <NavLink to="/reports">Denúncias</NavLink>
       </LeftGroup>
 

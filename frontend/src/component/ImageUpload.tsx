@@ -52,8 +52,15 @@ export default function ImageUpload({
 
   return (
     <Wrapper>
-      <Area htmlFor="image-upload-input">Arraste ou clique para selecionar uma foto</Area>
-      <Input id="image-upload-input" type="file" accept="image/*" onChange={handle} />
+      <Area htmlFor="image-upload-input">
+        Arraste ou clique para selecionar uma foto
+      </Area>
+      <Input
+        id="image-upload-input"
+        type="file"
+        accept="image/*"
+        onChange={handle}
+      />
       {preview && <Preview src={preview} alt="preview" />}
     </Wrapper>
   );

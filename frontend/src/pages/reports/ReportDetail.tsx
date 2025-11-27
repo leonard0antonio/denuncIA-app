@@ -2,6 +2,15 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Layout from "../../component/Layout";
 
+import {
+  Container,
+  Title,
+  Text,
+  Label,
+  ImageBox,
+  Image,
+} from "../../styles/ReportDetail.Styles";
+ 
 export default function ReportDetail() {
   const { id } = useParams<{ id: string }>();
   const [r, setR] = useState<any>(null);
@@ -14,27 +23,34 @@ export default function ReportDetail() {
   if (!r)
     return (
       <Layout>
-        <div>Denúncia não encontrada.</div>
+        <Container>
+          <Title>Denúncia não encontrada</Title>
+          <Text>O registro solicitado não existe ou foi removido.</Text>
+        </Container>
       </Layout>
     );
 
   return (
     <Layout>
-      <h2>{r.title}</h2>
-      <p>{r.description}</p>
-      <p>
-        <strong>Protocolo:</strong> {r.protocol}
-      </p>
-      <p>
-        <strong>Local:</strong> {r.lat}, {r.lng}
-      </p>
-      {r.image ? (
-        <img
-          src={r.image}
-          alt="foto"
-          style={{ maxWidth: 800, borderRadius: 8 }}
-        />
-      ) : null}
+      <Container>
+        <Title>{r.title}</Title>
+
+        <Text>{r.description}</Text>
+
+        <Text>
+          <Label>Protocolo:</Label> {r.protocol}
+        </Text>
+
+        <Text>
+          <Label>Local:</Label> {r.lat}, {r.lng}
+        </Text>
+
+        {r.image ? (
+          <ImageBox>
+            <Image src={r.image} alt="foto da denúncia" />
+          </ImageBox>
+        ) : null}
+      </Container>
     </Layout>
   );
 }

@@ -8,7 +8,7 @@ class Denuncia(models.Model):
     localizacao = models.CharField(max_length = 200)
     status = models.CharField(max_length = 10)
     foto = models.ImageField(upload_to="caminho_futuro/")
-    autor = models.ForeignKey(User, on_delete=models.Cascade, related_name="denuncias")
+    autor = models.ForeignKey(User, on_delete=models.CASCADE, related_name="denuncias")
     created_at = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):

@@ -1,5 +1,25 @@
-import axios from "axios";
+import axios  from "axios";
+import { type InternalAxiosRequestConfig }  from "axios";
+import { ACESS_TOKEN } from "../constants";
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE || "http://localhost:8000/api",
+baseURL: "http://localhost:8000", // Django REST depois
+headers: {
+"Content-Type": "application/json",
+},
 });
+
+api.interceptors.request.use(
+    (config): InternalAxiosRequestConfig => {
+        const token = localStorage.getItem(ACESS_TOKEN)
+        if (token) {
+            config.headers.Authorization = `Bearer ${token}`
+        }
+        return config;
+    },
+    (error) => {
+        return Promise.reject(error)
+    }
+)
+
 export default api;

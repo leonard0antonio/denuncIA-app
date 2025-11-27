@@ -1,68 +1,16 @@
-import styled from "styled-components";
 import { ShieldCheck, Info, LinkIcon } from "lucide-react";
 
-const Wrapper = styled.footer`
-  margin-top: 50px;
-  padding: 50px 20px;
-  background: var(--card);
-  border-top: 1px solid var(--border);
-  color: var(--text);
-`;
-
-const Grid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 40px;
-
-  @media (max-width: 800px) {
-    grid-template-columns: 1fr;
-  }
-`;
-
-const Section = styled.div``;
-
-const Title = styled.h3`
-  font-size: 18px;
-  margin-bottom: 14px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-`;
-
-const Text = styled.p`
-  color: var(--muted);
-  margin-bottom: 10px;
-  line-height: 1.6;
-`;
-
-const List = styled.ul`
-  list-style: none;
-  padding-left: 0;
-  margin-top: 5px;
-`;
-
-const Item = styled.li`
-  margin-bottom: 8px;
-`;
-
-const FooterLink = styled.a`
-  color: var(--primary);
-  text-decoration: none;
-  font-weight: 500;
-
-  &:hover {
-    text-decoration: underline;
-  }
-`;
-
-const Bottom = styled.div`
-  margin-top: 40px;
-  padding-top: 25px;
-  border-top: 1px solid var(--border);
-  font-size: 14px;
-  color: var(--muted);
-  text-align: center;
-`;
+import {
+  Wrapper,
+  Grid,
+  Section,
+  Title,
+  Text,
+  List,
+  Item,
+  FooterLink,
+  Bottom,
+} from "../styles/Footer.sttyles";
 
 export default function Footer() {
   return (

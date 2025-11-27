@@ -1,10 +1,16 @@
-import { Button } from "../component/Button";
+import Layout from "../component/Layout";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+
+const Title = styled.h1`font-size:28px;margin-bottom:16px;`;
 
 export default function Home() {
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>Denuncie problemas urbanos</h1>
-      <Button to="/reports/new">Criar denúncia</Button>
-    </div>
+    <Layout>
+      <Title>Denuncie problemas urbanos</Title>
+      <Link to="/reports/new">
+        <button style={{padding:'10px 14px', borderRadius:8, border:'none', background:'var(--primary)', color:'#fff'}}>Criar denúncia</button>
+      </Link>
+    </Layout>
   );
 }

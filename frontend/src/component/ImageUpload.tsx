@@ -1,52 +1,60 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React, { useState, useEffect } from "react";
+import { Wrapper, Input, Area, Preview } from "../styles/ImageUpload.styles";
 
-const Preview = styled.img`
-  max-width: 100%;
-  border-radius: 8px;
-  margin-top: 8px;
-`;
-
-export default function ImageUpload({ onChange, initial }: { onChange: (base64: string | null) => void, initial?: string | null }) {
+export default function ImageUpload({
+  onChange,
+  initial,
+}: {
+  onChange: (b64: string | null) => void;
+  initial?: string | null;
+}) {
   const [preview, setPreview] = useState<string | null>(initial || null);
 
-  async function handleFile(e: React.ChangeEvent<HTMLInputElement>) {
+  useEffect(() => {
+    // sync initial -> preview if parent changes initial
+    setPreview(initial || null);
+  }, [initial]);
+
+  function toBase64(file: File) {
+    return new Promise<string>((res, rej) => {
+      const reader = new FileReader();
+      reader.onload = () => res(String(reader.result));
+      reader.onerror = rej;
+      reader.readAsDataURL(file);
+    });
+  }
+
+  async function handle(e: React.ChangeEvent<HTMLInputElement>) {
     const f = e.target.files?.[0];
     if (!f) {
       setPreview(null);
       onChange(null);
       return;
     }
-    // limit size ~5MB
     if (f.size > 5_000_000) {
-      alert('Arquivo muito grande. Máximo 5MB.');
+      alert("Arquivo muito grande. Máximo 5MB.");
+      e.currentTarget.value = ""; // limpar input
       return;
     }
-    const b64 = await toBase64(f);
-    setPreview(b64);
-    onChange(b64);
-  }
-
-  function toBase64(file: File) {
-    return new Promise<string>((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => resolve(String(reader.result));
-      reader.onerror = reject;
-      reader.readAsDataURL(file);
-    });
+    try {
+      const b = await toBase64(f);
+      setPreview(b);
+      onChange(b);
+    } catch (err) {
+      console.error("Erro ao ler arquivo:", err);
+      alert("Erro ao processar a imagem.");
+      setPreview(null);
+      onChange(null);
+    } finally {
+      e.currentTarget.value = ""; // limpar input para permitir reenvio do mesmo arquivo
+    }
   }
 
   return (
-    <div>
-      {/* SOLUÇÃO: Adicionado aria-label */}
-      <input 
-        type="file" 
-        accept="image/*" 
-        onChange={handleFile}
-        aria-label="Carregar imagem do curso" 
-      />
-      
-      {preview && <Preview src={preview} alt="Prévia da imagem" />}
-    </div>
+    <Wrapper>
+      <Area htmlFor="image-upload-input">Arraste ou clique para selecionar uma foto</Area>
+      <Input id="image-upload-input" type="file" accept="image/*" onChange={handle} />
+      {preview && <Preview src={preview} alt="preview" />}
+    </Wrapper>
   );
 }

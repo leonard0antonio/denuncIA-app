@@ -1,19 +1,20 @@
-import styled from 'styled-components';
-import { motion } from 'framer-motion';
+import { ToggleButton } from "../styles/themeToggle.styles";
 
-const Toggle = styled(motion.button)`
-  border: none;
-  background: transparent;
-  color: var(--text);
-  cursor: pointer;
-  padding: 6px 10px;
-  border-radius: 8px;
-`;
+interface ThemeToggleProps {
+  onToggle: () => void;
+  isDark: boolean;
+}
 
-export default function ThemeToggle({ onToggle, isDark }: { onToggle: ()=>void, isDark: boolean }) {
+export default function ThemeToggle({ onToggle, isDark }: ThemeToggleProps) {
   return (
-    <Toggle onClick={onToggle} whileTap={{ scale: 0.95 }}>
-      {isDark ? '🌙 Dark' : '☀️ Light'}
-    </Toggle>
+    <ToggleButton
+      onClick={onToggle}
+      whileTap={{ scale: 0.95 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3 }}
+    >
+      {isDark ? "🌙 Dark" : "☀️ Light"}
+    </ToggleButton>
   );
 }

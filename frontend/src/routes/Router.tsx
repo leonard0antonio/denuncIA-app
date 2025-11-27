@@ -3,14 +3,23 @@ import Home from "../pages/Home";
 import ReportList from "../pages/reports/ReportList";
 import ReportCreate from "../pages/reports/ReportCreate";
 import ReportDetail from "../pages/reports/ReportDetail";
+import Header from "../component/Header";
 
-export default function Router() {
+type Props = {
+  toggleTheme: () => void;
+  isDark: boolean;
+};
+
+export default function Router({ toggleTheme, isDark }: Props) {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/reports" element={<ReportList />} />
-      <Route path="/reports/new" element={<ReportCreate />} />
-      <Route path="/reports/:id" element={<ReportDetail />} />
-    </Routes>
+    <>
+      <Header toggleTheme={toggleTheme} isDark={isDark} />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/reports" element={<ReportList />} />
+        <Route path="/reports/new" element={<ReportCreate />} />
+        <Route path="/reports/:id" element={<ReportDetail />} />
+      </Routes>
+    </>
   );
 }

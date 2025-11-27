@@ -7,11 +7,22 @@ import Header from "../component/Header";
 import ProtectedRoute from "../component/ProtectedRoute";
 import Login from "../pages/loginRegister/Login"
 import Register from "../pages/loginRegister/Register"
+import { Navigate } from "react-router-dom";
 
 type Props = {
   toggleTheme: () => void;
   isDark: boolean;
 };
+
+function Logout() {
+  localStorage.clear();
+  return <Navigate to="/login" />
+}
+
+function RegisterAndLogout(){
+  localStorage.clear();
+  return <Register/>
+}
 
 export default function Router({ toggleTheme, isDark }: Props) {
   return (
@@ -24,7 +35,8 @@ export default function Router({ toggleTheme, isDark }: Props) {
         </ProtectedRoute> }/>
       
       <Route path="/login" element={<Login/>} />
-      <Route path="/register" element={<Register/>} />
+      <Route path="/register" element={<RegisterAndLogout/>} />
+      <Route path="/logout" element={<Logout/>} />
         <Route path="/" element={<Home />} />
         <Route path="/reports" element={<ReportList />} />
         <Route path="/reports/new" element={<ReportCreate />} />

@@ -24,6 +24,7 @@ urlpatterns = [
     path("denuncia/user/register/", CreateUserView.as_view(), name="cadastro"),
     path("denuncia/token/", TokenObtainPairView.as_view(), name="get_token"),
     path("denuncia/token/refresh", TokenRefreshView.as_view(), name="refresh_token"),
-    path("api-auth/", include("rest_framework.urls"))
+    path("api-auth/", include("rest_framework.urls")),
+    path("api/", include("denuncIA.urls")),
     
 ]

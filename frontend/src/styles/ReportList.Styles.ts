@@ -1,52 +1,64 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
+export const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+`;
+
 export const Title = styled.h2`
-  color: var(--text-primary);
-  margin-bottom: 20px;
-  font-size: 24px;
-  font-weight: 600;
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 10px;
 `;
 
 export const Empty = styled.p`
-  color: var(--text-secondary);
+  color: var(--muted);
   font-size: 16px;
   margin-top: 10px;
 `;
 
-export const CardLink = styled(Link)`
+export const ItemLink = styled(Link)`
   text-decoration: none;
   color: inherit;
 `;
 
 export const Card = styled.div`
   background: var(--card);
-  padding: 18px;
+  border: 1px solid var(--border);
   border-radius: 12px;
-  margin-bottom: 14px;
-  border: 1px solid rgba(0,0,0,0.1);
-  transition: 0.15s;
+  padding: 16px 20px;
+  transition: 0.15s ease;
+  cursor: pointer;
+
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 
   &:hover {
-    background: var(--card-hover);
-    transform: translateY(-2px);
-    box-shadow: 0 3px 12px rgba(0,0,0,0.06);
+    background: var(--hover);
+    transform: translateY(-1px);
   }
 `;
 
-export const CardTitle = styled.strong`
-  color: var(--text-primary);
+export const CardTitle = styled.h3`
+  margin: 0;
+  font-size: 20px;
   font-weight: 600;
-  font-size: 18px;
+  color: var(--text);
 `;
 
 export const CardDesc = styled.p`
-  color: var(--text-secondary);
-  margin: 6px 0 6px 0;
+  margin: 0;
+  color: var(--muted);
   font-size: 15px;
+  line-height: 1.5;
 `;
 
 export const Protocol = styled.small`
-  color: var(--muted);
-  font-size: 13px;
+  margin-top: 5px;
+  color: var(--primary);
+  font-weight: 600;
 `;

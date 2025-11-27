@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import Layout from "../../component/Layout";
 import {
+  Wrapper,
   Title,
   Empty,
-  CardLink,
-  Card,
+  ItemLink,
+  Card,                           
   CardTitle,
   CardDesc,
-  Protocol
+  Protocol,
 } from "../../styles/ReportList.Styles";
 
 export default function ReportList() {
@@ -20,19 +21,21 @@ export default function ReportList() {
 
   return (
     <Layout>
-      <Title>Denúncias Locais</Title>
+      <Title>Denúncias locais</Title>
 
-      {data.length === 0 && <Empty>Nenhuma denúncia registrada.</Empty>}
+      {data.length === 0 && <Empty>Nenhuma denúncia local.</Empty>}
 
-      {data.map((d) => (
-        <CardLink key={d.id} to={`/reports/${d.id}`}>
-          <Card>
-            <CardTitle>{d.title}</CardTitle>
-            <CardDesc>{d.description}</CardDesc>
-            <Protocol>Protocolo: {d.protocol}</Protocol>
-          </Card>
-        </CardLink>
-      ))}
+      <Wrapper>
+        {data.map((d) => (
+          <ItemLink key={d.id} to={`/reports/${d.id}`}>
+            <Card>
+              <CardTitle>{d.title}</CardTitle>
+              <CardDesc>{d.description}</CardDesc>
+              <Protocol>Protocolo: {d.protocol}</Protocol>
+            </Card>
+          </ItemLink>
+        ))}
+      </Wrapper>
     </Layout>
   );
 }

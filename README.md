@@ -65,7 +65,7 @@ Inclui:
 - Usuário só vê/edita/exclui **denúncias próprias**  
 - ADM vê, edita e exclui **todas**  
 
-![DataFlow](./dataflow.png)
+![DataFlow](./DataFlow.png)
 
 ---
 

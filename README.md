@@ -85,7 +85,7 @@ Durante esse desenvolvimento parcial, você provavelmente já adquiriu ou está 
 
 ## 📚 O que estou aprendendo com esse projeto
 
-* Integração entre **frontend JS e Django**
+* Integração entre **frontend TSX e Django**
 * Modelagem e controle de dados no Django
 * Gerenciamento de estado e formulários no frontend
 * Desenvolvimento local com dois servidores distintos
@@ -96,9 +96,7 @@ Durante esse desenvolvimento parcial, você provavelmente já adquiriu ou está 
 ## ✨ Próximos Passos
 
 * Adicionar autenticação / login
-* Implementar filtros / status de denúncia
 * Adicionar sistema de notificações
-* Fazer deploy para produção
 
 ## 🚀 Como rodar localmente
 
@@ -108,16 +106,16 @@ Durante esse desenvolvimento parcial, você provavelmente já adquiriu ou está 
 ```
 
 2. **Backend (Django):**
-
    * Vá para a pasta do backend
    * Instale dependências (ex: `pip install -r requirements.txt`)
    * Rode migrações: `python manage.py migrate`
    * Inicie o servidor: `python manage.py runserver`
-3. **Frontend:**
 
+3. **Frontend:**
    * Vá para a pasta do frontend
    * Rode: `npm install`
    * Inicie o dev server: `npm run dev`
+
 4. Abra o navegador e acesse os endereços correspondentes (ex: `http://localhost:3000` para o front e `http://localhost:8000` para o backend).
 
 ---

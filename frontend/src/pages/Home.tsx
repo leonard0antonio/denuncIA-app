@@ -159,6 +159,5 @@ export default function Home() {
       </Wrapper>
       <Footer />
     </Layout>
-    
   );
 }

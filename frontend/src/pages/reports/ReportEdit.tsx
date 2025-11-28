@@ -14,34 +14,51 @@ import {
   SaveButton
 } from "../../styles/ReportEdit.Styles";
 
+type Denuncia = {
+  id: string;
+  title: string;
+  description: string;
+  lat: number;
+  lng: number;
+  image?: string | null; 
+  updated_at?: string;
+};
+
+
 export default function ReportEdit() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [data, setData] = useState<any>(null);
+  const [data, setData] = useState<Denuncia | null>(null);
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [image, setImage] = useState<string | null>(null);
   const [pos, setPos] = useState<[number, number] | null>(null);
 
   useEffect(() => {
-    const arr = JSON.parse(localStorage.getItem("denuncias") || "[]");
-    const item = arr.find((x: any) => x.id === id);
-    if (!item) return;
+    function load() {
+      const arr = JSON.parse(localStorage.getItem("denuncias") || "[]") as Denuncia[];
+      const item = arr.find((x) => x.id === id);
 
-    setData(item);
-    setTitle(item.title);
-    setDesc(item.description);
-    setPos([item.lat, item.lng]);
-    setImage(item.image || null);
+      if (!item) return;
+
+      setData(item);
+      setTitle(item.title);
+      setDesc(item.description);
+      setPos([item.lat, item.lng]);
+      setImage(item.image ?? null);
+    }
+
+    load();
   }, [id]);
 
   function update() {
     if (!title || !desc || !pos)
       return alert("Preencha todos os campos.");
 
-    const arr = JSON.parse(localStorage.getItem("denuncias") || "[]");
-    const index = arr.findIndex((x: any) => x.id === id);
+    const arr = JSON.parse(localStorage.getItem("denuncias") || "[]") as Denuncia[];
+    const index = arr.findIndex((x) => x.id === id);
+
     if (index === -1) return;
 
     arr[index] = {
@@ -78,10 +95,7 @@ export default function ReportEdit() {
 
         <Field>
           <Label>Descrição</Label>
-          <TextArea
-            value={desc}
-            onChange={(e) => setDesc(e.target.value)}
-          />
+          <TextArea value={desc} onChange={(e) => setDesc(e.target.value)} />
         </Field>
 
         <Field>

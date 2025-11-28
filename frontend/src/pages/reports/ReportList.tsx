@@ -12,16 +12,30 @@ import {
   IconRow,
   CardIcon,
   Actions,
-  ActionBtn
+  ActionBtn,
 } from "../../styles/ReportList.Styles";
 import { FiFileText, FiEdit, FiTrash2 } from "react-icons/fi";
 
+type Denuncia = {
+  id: string;
+  title: string;
+  description: string;
+  protocol: string;
+};
+
 export default function ReportList() {
-  const [data, setData] = useState<any[]>([]);
+  const [data, setData] = useState<Denuncia[]>([]);
 
   useEffect(() => {
-    const arr = JSON.parse(localStorage.getItem("denuncias") || "[]");
-    setData(arr.reverse());
+    function load() {
+      const arr = JSON.parse(
+        localStorage.getItem("denuncias") || "[]"
+      ) as Denuncia[];
+      const ordered = [...arr].reverse();
+      setData(ordered);
+    }
+
+    load();
   }, []);
 
   return (
@@ -48,7 +62,6 @@ export default function ReportList() {
               <Protocol>Protocolo: {d.protocol}</Protocol>
             </Link>
 
-            {/* 🔥 AÇÕES */}
             <Actions>
               <Link to={`/reports/${d.id}/edit`}>
                 <ActionBtn>

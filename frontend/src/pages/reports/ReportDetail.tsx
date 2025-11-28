@@ -10,14 +10,30 @@ import {
   ImageBox,
   Image,
 } from "../../styles/ReportDetail.Styles";
- 
+
+type Denuncia = {
+  id: string;
+  title: string;
+  description: string;
+  protocol: string;
+  lat: number;
+  lng: number;
+  image?: string | null;
+  updated_at?: string;
+};
+
 export default function ReportDetail() {
   const { id } = useParams<{ id: string }>();
-  const [r, setR] = useState<any>(null);
+  const [r, setR] = useState<Denuncia | null>(null);
 
   useEffect(() => {
-    const arr = JSON.parse(localStorage.getItem("denuncias") || "[]");
-    setR(arr.find((x: any) => x.id === id) || null);
+    function load() {
+      const arr = JSON.parse(localStorage.getItem("denuncias") || "[]") as Denuncia[];
+      const found = arr.find((x) => x.id === id) || null;
+      setR(found);
+    }
+
+    load();
   }, [id]);
 
   if (!r)

@@ -1,123 +1,150 @@
-## 🧠 Descrição do Projeto — denuncIA-app
+# 🧠 denuncIA-app — Sistema de Denúncias
+
+## 📌 Descrição do Projeto
 
 ### Introdução
 
-* **Nome do projeto:** *denuncIA-app*
-* **Contexto:** Projeto em desenvolvimento, atualmente na branch `dev`, que conecta frontend moderno com backend Django para gerenciar denúncias / report de conteúdo ou casos.
-* **Objetivo principal:** Construir uma aplicação full-stack onde usuários possam fazer denúncias através da interface (frontend), e um backend robusto (Django) gerencia, armazena e possivelmente processa essas denúncias.
-* **Motivação / Experiência:**
-
-  * Aprender a integrar **React (ou outro front JS via npm)** com **Django** no backend.
-  * Criar um sistema “real” que pode, no futuro, evoluir para algo mais complexo (relatórios, dashboards, autenticação, moderação).
-  * Mostrar no seu portfólio que você tem experiência com um stack **full-stack Python + JavaScript**.
+- **Nome do projeto:** *denuncIA-app*  
+- **Contexto:** Projeto em desenvolvimento (branch `dev`), conectando um **frontend moderno** com **backend Django** para registro, listagem e gerenciamento de denúncias.  
+- **Objetivo:** Criar uma aplicação full-stack onde usuários enviam denúncias e o backend gerencia, armazena e controla permissões (usuário comum × administrador).  
+- **Motivações:**
+  - Praticar integração **React/TSX + Django REST**  
+  - Criar um sistema real com fluxo completo (CRUD + permissões)  
+  - Fortalecer portfólio com um projeto full-stack  
 
 ---
 
 ## ⚙️ Principais Funcionalidades do Projeto
 
-1. **Frontend React / JavaScript**
+### 🔹 Frontend (React / JavaScript / TypeScript)
+- Interface completa para denúncias  
+- Formulários para criação e edição  
+- Listagem reativa  
+- Restrição de edição e exclusão conforme o papel do usuário  
+- Componentes reutilizáveis  
 
-   * Interface de usuário para enviar denúncias.
-   * Formulários para coletar dados de denúncia (ex.: tipo, descrição, evidências).
-   * Navegação reativa, provavelmente com páginas ou componentes para diferentes seções (denunciar, lista de denúncias, perfil, etc).
+### 🔹 Backend (Django + Django REST Framework)
+- API REST para CRUD de denúncias  
+- Modelos representando denúncias, usuários e permissões  
+- Autenticação e autorização (em expansão)  
+- Middleware para diferenciar **ADM** e **USER**  
 
-2. **Backend Django**
-
-   * APIs REST para receber e armazenar denúncias no banco de dados.
-   * Modelos Django para representar denúncias, usuários, status das denúncias.
-   * Possível lógica de validação / autenticação (dependendo de como você planeja).
-   * Sistema para rodar migrações, gerenciar dados e manter integridade das denúncias.
-
-3. **Integração Front-Back**
-
-   * Frontend se comunica com o backend via chamadas HTTP (fetch / axios / outra lib).
-   * Desenvolvimento paralelo: você roda `npm run dev` para o front e servidor Django para o back ao mesmo tempo.
-   * Potencial para adicionar autenticação, filtros ou dashboards no futuro.
-
-4. **Ambiente de Desenvolvimento**
-
-   * Configuração local para rodar front e back simultaneamente.
-   * Scripts de inicialização para desenvolvimento e testes.
+### 🔹 Integração Front–Back
+- Comunicação via chamadas HTTP (fetch/axios)  
+- Front rodando com `npm run dev`  
+- Backend rodando em Django simultaneamente  
 
 ---
 
 ## 🛠️ Tecnologias Utilizadas
 
-* **Python** — para o backend com Django.
-* **Django** — framework web MVC, usado para construir a API e a lógica de backend.
-* **JavaScript / TypeScript ** — para o frontend do projeto, rodando via `npm`.
-* **Node.js / npm** — para gerenciar dependências do frontend.
-* **React ** — presumido, já que se usa `npm run dev` para front (ou pode ser outro framework JS, dependendo do seu setup).
-* **Django REST Framework** (possível, se você está criando APIs REST no Django).
-* **Banco de dados** — algum banco configurado no Django (SQLite, Postgres, etc, dependendo de seu ambiente).
-* **Git / GitHub** — para versionamento de código e colaboração.
+- **Python + Django**  
+- **Django REST Framework**  
+- **JavaScript / TypeScript**  
+- **React**  
+- **npm**  
+- **Git / GitHub**  
 
 ---
 
-## 🖼️ Capturas de Tela do Projeto
+## 🔄 Fluxos do Sistema
 
-* Como o projeto ainda está em desenvolvimento, pode não haver muitas **screenshots prontas** no repositório.
-* Visual estimado: uma interface moderna de formulário, com campos para denúncia, botões de envio, mensagens de erro/sucesso.
-* No backend, a parte administrativa do Django (se usada) poderia ter a típica interface de admin padrão, com CRUD de denúncias.
+### 📥 **UserFlow — Fluxo do Usuário**
+Representa o caminho entre:  
+Login → Criar Denúncia → Listar → Editar/Excluir → Papel de ADM × Usuário.
+
+![UserFlow](./userflow.png)
+
+---
+
+### 🔁 **DataFlow — Fluxo de Dados (ADM × Usuário)**
+Mostra o trânsito de dados entre:  
+Front-end ↔ API ↔ Middleware de Permissões ↔ Banco de Dados.
+
+Inclui:
+- Usuário só vê/edita/exclui **denúncias próprias**  
+- ADM vê, edita e exclui **todas**  
+
+![DataFlow](./dataflow.png)
+
+---
+
+## 🖼️ Capturas de Tela
+
+*O projeto está em desenvolvimento contínuo. As telas exibem:*  
+- Formulário de denúncias  
+- Lista com ícones, botões de editar/excluir  
+- Layout inspirado em sites governamentais  
 
 ---
 
 ## 📚 Lições Aprendidas
 
-Durante esse desenvolvimento parcial, você provavelmente já adquiriu ou está aprendendo:
-
-* 🔗 **Integração entre frontend JS moderno e backend Django** (fluxo de dados, CORS, chamadas API).
-* ⚙️ **Arquitetura front-back desacoplada**: separar claramente o que é responsabilidade do frontend e do backend.
-* 🧪 **Desenvolvimento em paralelo**: rodar servidor Django e servidor de dev JS juntos.
-* 💾 **Modelagem de dados no Django**: criar modelos para denúncias, talvez usuários, status, etc.
-* 🧰 **Gerenciamento de estado e formulários no frontend**: lidar com inputs, validação e envio.
+- Estruturação de projeto **full-stack desacoplado**  
+- Fluxo completo **Frontend ↔ Backend Django REST**  
+- Boas práticas de comunicação entre serviços  
+- Modelagem de dados e permissões avançadas  
+- Gerenciamento de estado e formulários no front  
 
 ---
 
 ## 🔍 Funcionalidades em Desenvolvimento
 
-* Formulário para criar denúncias
-* Validação de entrada no frontend
-* Endpoints Django para salvar denúncias
-* Modelo de dados Django para manter denúncias organizadas
-
----
-
-## 📚 O que estou aprendendo com esse projeto
-
-* Integração entre **frontend TSX e Django**
-* Modelagem e controle de dados no Django
-* Gerenciamento de estado e formulários no frontend
-* Desenvolvimento local com dois servidores distintos
-* Planejamento de features para um app real de denúncia
+- Autenticação (login, roles ADM/USER)  
+- Filtro de denúncias  
+- Painel administrativo  
+- Notificações em tempo real  
+- Dashboard futuro  
 
 ---
 
 ## ✨ Próximos Passos
 
-* Adicionar autenticação / login
-* Adicionar sistema de notificações
-
-## 🚀 Como rodar localmente
-
-1. Clone o repositório:  
-   ```bash
-   git clone https://github.com/leonard0antonio/denuncIA-app.git
-```
-
-2. **Backend (Django):**
-   * Vá para a pasta do backend
-   * Instale dependências (ex: `pip install -r requirements.txt`)
-   * Rode migrações: `python manage.py migrate`
-   * Inicie o servidor: `python manage.py runserver`
-
-3. **Frontend:**
-   * Vá para a pasta do frontend
-   * Rode: `npm install`
-   * Inicie o dev server: `npm run dev`
-
-4. Abra o navegador e acesse os endereços correspondentes (ex: `http://localhost:3000` para o front e `http://localhost:8000` para o backend).
+- Versionamento da API  
+- Deploy (Vercel + Railway / Render / DigitalOcean)  
 
 ---
 
+## 🚀 Como rodar localmente
 
+### 1. Clone o repositório  
+```bash
+git clone https://github.com/leonard0antonio/denuncIA-app.git
+````
+
+---
+
+### 2. Backend (Django)
+
+```bash
+cd backend
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py runserver
+```
+
+---
+
+### 3. Frontend (React)
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+---
+
+### 4. Acessos
+
+* Frontend: **[http://localhost:3000](http://localhost:3000)**
+* Backend: **[http://localhost:8000](http://localhost:8000)**
+
+---
+
+## 🏁 Final
+
+Este projeto está evoluindo para uma solução completa de denúncias, com foco em usabilidade, segurança, fluxo realista e arquitetura profissional.
+Sinta-se à vontade para contribuir, abrir issues ou sugerir melhorias!
+
+```

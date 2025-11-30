@@ -6,13 +6,23 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from .models import Denuncia
 
 
-class CreateDenuncia(generics.ListAPIView):
+class GetDenuncia(generics.RetrieveAPIView):
     serializer_class = DenunciaSerializer
-    permission_classes = [IsAuthenticated] #Apenas o usuario autenticado pode chamar essa rota (autenticação é feita pelo token jwt)
+    permission_classes = [AllowAny]
+
+    lookup_field = 'protocolo'
+
+    def get_queryset(self):
+        user = self.request.user
+        return Denuncia.objects.filter(autor=user)
+
+class CreateDenuncia(generics.ListCreateAPIView):
+    serializer_class = DenunciaSerializer
+    permission_classes = [AllowAny] #Apenas o usuario autenticado pode chamar essa rota (autenticação é feita pelo token jwt)
 
     def get_queryset(self):
         user = self.request.user #requisita o usuario que está fazendo a requisicao
-        return Denuncia.objects.all
+        return Denuncia.objects.all()
     
     def perform_create(self, serializer):
         if serializer.is_valid():
@@ -24,6 +34,18 @@ class DeleteDenuncia(generics.DestroyAPIView):
     serializer_class = DenunciaSerializer
     permission_classes = [IsAuthenticated]
     
+    lookup_field = 'protocolo'
+    
+    def get_queryset(self):
+        user = self.request.user #requisita o usuario que está fazendo a requisicao
+        return Denuncia.objects.filter(autor=user)
+    
+class UpdateDenuncia(generics.UpdateAPIView):
+    serializer_class = DenunciaSerializer
+    permission_classes = [IsAuthenticated]
+    
+    lookup_field = 'protocolo'
+
     def get_queryset(self):
         user = self.request.user #requisita o usuario que está fazendo a requisicao
         return Denuncia.objects.filter(autor=user)
@@ -32,3 +54,9 @@ class CreateUserView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [AllowAny] #qualquer pessoa pode cria um user
+
+
+
+
+
+    

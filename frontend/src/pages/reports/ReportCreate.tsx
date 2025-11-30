@@ -3,6 +3,7 @@ import Layout from "../../component/Layout";
 import Map from "../../component/Map";
 import ImageUpload from "../../component/ImageUpload";
 import { v4 as uuidv4 } from "uuid";
+import api from "../../api/client";
 
 import {
   Container,
@@ -14,37 +15,43 @@ import {
   Button,
 } from "../../styles/ReportCreate.Styles";
 
-export default function ReportCreate() {
-  const [title, setTitle] = useState("");
-  const [desc, setDesc] = useState("");
-  const [pos, setPos] = useState<[number, number] | null>(null);
-  const [image, setImage] = useState<string | null>(null);
 
-  function saveLocal() {
-    if (!title || !desc || !pos)
+export default  function ReportCreate() {
+  const [categoria, setCategoria] = useState("");
+  const [desc, setDesc] = useState("");
+  const [localizacao, setLocalizacao] = useState<[number, number] | null>(null);
+  //const [foto, setFoto] = useState<string | null>(null);
+
+  async function saveLocal() {
+    if (!categoria || !desc || !localizacao)
       return alert("Preencha título, descrição e marque no mapa.");
 
+
+   
     const rpt = {
-      id: uuidv4(),
-      title,
-      description: desc,
-      lat: pos[0],
-      lng: pos[1],
-      image,
-      protocol: uuidv4(),
+      protocolo: uuidv4(),
+      categoria,
+      descricao: desc,
+      latitude: localizacao[0],
+      longitude: localizacao[1], //EssE METodo permite limitar as casas decimais
+     // foto,
+      status: 'Em análise',
       created_at: new Date().toISOString(),
     };
+
+    console.log(rpt)
 
     const arr = JSON.parse(localStorage.getItem("denuncias") || "[]");
     arr.push(rpt);
     localStorage.setItem("denuncias", JSON.stringify(arr));
 
-    alert("Denúncia salva localmente. Protocolo: " + rpt.protocol);
+    await api.post("api/denuncias/", rpt)
 
-    setTitle("");
+
+    setCategoria("");
     setDesc("");
-    setPos(null);
-    setImage(null);
+    setLocalizacao(null);
+    //setFoto(null);
   }
 
   return (
@@ -54,8 +61,8 @@ export default function ReportCreate() {
 
         <Input
           placeholder="Título da denúncia"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          value={categoria}
+          onChange={(e) => setCategoria(e.target.value)}
         />
 
         <TextArea
@@ -66,12 +73,10 @@ export default function ReportCreate() {
 
         <Section>
           <MapTitle>Marque no mapa o local da ocorrência</MapTitle>
-          <Map position={pos} onChange={(lat, lng) => setPos([lat, lng])} />
+          <Map position={localizacao} onChange={(latitude, longitude) => setLocalizacao([latitude, longitude])} />
         </Section>
 
-        <Section>
-          <ImageUpload onChange={(b) => setImage(b)} />
-        </Section>
+
 
         <Button onClick={saveLocal}>Salvar Denúncia</Button>
       </Container>

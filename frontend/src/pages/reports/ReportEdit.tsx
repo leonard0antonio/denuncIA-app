@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import Layout from "../../component/Layout";
 import ImageUpload from "../../component/ImageUpload";
 import Map from "../../component/Map";
+import api from "../../api/client";
 
 import {
   Card,
@@ -13,67 +14,80 @@ import {
   TextArea,
   SaveButton
 } from "../../styles/ReportEdit.Styles";
+import { Protocol } from "../../styles/ReportList.Styles";
 
 type Denuncia = {
-  id: string;
-  title: string;
-  description: string;
-  lat: number;
-  lng: number;
-  image?: string | null; 
-  updated_at?: string;
-};
+  protocolo: string;
+  categoria: string;
+  descricao: string;
+  latitude: number;
+  longitude: number;
+ //  image?: string | null; 
+ };
 
 
 export default function ReportEdit() {
-  const { id } = useParams();
+  const { protocolo } = useParams();
   const navigate = useNavigate();
-
+  console.log(protocolo)
   const [data, setData] = useState<Denuncia | null>(null);
-  const [title, setTitle] = useState("");
-  const [desc, setDesc] = useState("");
-  const [image, setImage] = useState<string | null>(null);
+  const [categoria, setCategoria] = useState("");
+  const [descricao, setDescricao] = useState("");
+  //const [image, setImage] = useState<string | null>(null);
   const [pos, setPos] = useState<[number, number] | null>(null);
 
   useEffect(() => {
-    function load() {
+   async  function load() {
+    let item;
       const arr = JSON.parse(localStorage.getItem("denuncias") || "[]") as Denuncia[];
-      const item = arr.find((x) => x.id === id);
+     item = arr.find((x) => x.protocolo === protocolo);
 
-      if (!item) return;
+      if (!item){
+        const response = await api.get(`api/denuncias/${protocolo}/`);
+        item = response.data as Denuncia;
+      };
 
       setData(item);
-      setTitle(item.title);
-      setDesc(item.description);
-      setPos([item.lat, item.lng]);
-      setImage(item.image ?? null);
+      setCategoria(item.categoria);
+      setDescricao(item.descricao);
+      setPos([item.latitude, item.longitude]);
+     // setImage(item.image ?? null);
     }
 
     load();
-  }, [id]);
+  }, [protocolo]);
 
-  function update() {
-    if (!title || !desc || !pos)
+  async function update() {
+    if (!categoria || !descricao || !pos)
       return alert("Preencha todos os campos.");
 
+     const response = await api.get(`api/denuncias/${protocolo}/`);
+     const found = response.data as Denuncia;
+
     const arr = JSON.parse(localStorage.getItem("denuncias") || "[]") as Denuncia[];
-    const index = arr.findIndex((x) => x.id === id);
+    let index = arr.findIndex((x) => x.protocolo === protocolo);
 
-    if (index === -1) return;
-
-    arr[index] = {
-      ...arr[index],
-      title,
-      description: desc,
-      lat: pos[0],
-      lng: pos[1],
-      image,
-      updated_at: new Date().toISOString()
+    if (index === -1){
+      arr.push(found);
+      index = arr.length -1;
     };
 
+    const denunciaAtualizada = {
+      ...arr[index],
+      categoria,
+      descricao: descricao,
+      latitude: pos[0],
+      longitude: pos[1],
+    //  image,
+      
+    };
+
+    arr[index] = denunciaAtualizada
     localStorage.setItem("denuncias", JSON.stringify(arr));
+    //setData(denunciaAtualizada)
     alert("Denúncia atualizada.");
-    navigate(`/reports/${id}`);
+   await api.put(`api/denuncias/edit/${protocolo}/`, denunciaAtualizada)
+    navigate(`/denuncias/${protocolo}`);
   }
 
   if (!data)
@@ -90,24 +104,18 @@ export default function ReportEdit() {
 
         <Field>
           <Label>Título</Label>
-          <Input value={title} onChange={(e) => setTitle(e.target.value)} />
+          <Input value={categoria} onChange={(e) => setCategoria(e.target.value)} />
         </Field>
 
         <Field>
           <Label>Descrição</Label>
-          <TextArea value={desc} onChange={(e) => setDesc(e.target.value)} />
+          <TextArea value={descricao} onChange={(e) => setDescricao(e.target.value)} />
         </Field>
 
         <Field>
           <Label>Localização</Label>
-          <Map position={pos} onChange={(lat, lng) => setPos([lat, lng])} />
+          <Map position={pos} onChange={(latitude, longitude) => setPos([latitude, longitude])} />
         </Field>
-
-        <Field>
-          <Label>Imagem</Label>
-          <ImageUpload onChange={setImage} initial={image} />
-        </Field>
-
         <SaveButton onClick={update}>Salvar alterações</SaveButton>
       </Card>
     </Layout>

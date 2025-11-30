@@ -131,7 +131,7 @@ export default function Home() {
             <div
               style={{
                 background: "var(--card)",
-                padding: "18px",
+                padding: "18px",  
                 borderRadius: "12px",
               }}
             >

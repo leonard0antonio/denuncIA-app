@@ -19,7 +19,7 @@ export default function Header({
         <NavLink to="/" style={{ fontWeight: 700 }}>
           DenuncIA
         </NavLink>
-        <NavLink to="/reports">Denúncias</NavLink>
+        <NavLink to="/denuncias/">Denúncias</NavLink>
       </LeftGroup>
 
       <Nav>

@@ -26,6 +26,11 @@ function LoginRegisterForm({ route, method } : FormProps) {
             if (method === "login") {
                 localStorage.setItem(ACESS_TOKEN, res.data.access);
                 localStorage.setItem(REFRESH_TOKEN, res.data.refresh);
+            
+               const tokenCompleto = localStorage.getItem(ACESS_TOKEN);
+                console.log(tokenCompleto);
+
+          
                 navigate("/home")
             } else {
                 navigate("/login")

@@ -15,7 +15,7 @@ class UserSerializer(serializers.ModelSerializer):
 class DenunciaSerializer(serializers.ModelSerializer): 
     class Meta:
         model = Denuncia
-        fields = ["categoria", "descricao", "localizacao", "status", "foto"
+        fields = ["protocolo", "categoria", "descricao", "latitude", "longitude", "status",
                   "autor", "created_at"]
         extra_kwargs = {"autor": {"read_only": True}} #o usuario é setado pelo back end apenas.
                                     #CORRECAO: ERA RPA SER READ ONLY AO IVNES DE WRITE ONLY

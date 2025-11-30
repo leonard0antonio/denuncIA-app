@@ -45,13 +45,12 @@ export default function Router({ toggleTheme, isDark }: Props) {
         <Route path="/logout" element={<Logout />} />
 
         <Route path="/" element={<Home />} />
-
-        <Route path="/reports" element={<ReportList />} />
+        <Route path="/denuncias" element={<ReportList />} />
         <Route path="/reports/new" element={<ReportCreate />} />
-        <Route path="/reports/:id" element={<ReportDetail />} />
+        <Route path="/denuncias/:protocolo" element={<ReportDetail />} />
 
-        <Route path="/reports/:id/edit" element={<ReportEdit />} />
-        <Route path="/reports/:id/delete" element={<ReportDelete />} />
+        <Route path="/denuncias/:protocolo/edit" element={<ReportEdit />} />
+        <Route path="/reports/:protocolo/delete" element={<ReportDelete />} />
 
       </Routes>
     </>

@@ -19,12 +19,13 @@ from django.urls import path, include
 from denuncIA.views import CreateUserView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
+#Urls para gerar Tokens JWT (tokens de acesso e de atualização), essas urls não são acessadas manualmente, mas sim 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("denuncia/user/register/", CreateUserView.as_view(), name="cadastro"),
-    path("denuncia/token/", TokenObtainPairView.as_view(), name="get_token"),
-    path("denuncia/token/refresh", TokenRefreshView.as_view(), name="refresh_token"),
-    path("api-auth/", include("rest_framework.urls")),
-    path("api/", include("denuncIA.urls")),
+    path("denuncia/user/register/", CreateUserView.as_view(), name="cadastro"), #url responsavel pelo cadastro dos usuarios, recebendo a createUserView
+    path("denuncia/token/", TokenObtainPairView.as_view(), name="get_token"), #url q permite receber o token do usuario, verifique ' frontend\src\pages\loginRegister\Login.tsx ' em caso de duvida
+    path("denuncia/token/refresh", TokenRefreshView.as_view(), name="refresh_token"), #url q gera o token de refresh, assim que o token de acesso vencer (a cada 30 min)
+    path("api-auth/", include("rest_framework.urls")), # urls do rest framework, recomendo buscar na internet  oque isso faz!
+    path("api/", include("denuncIA.urls")), # urls da api
     
 ]

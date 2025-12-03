@@ -28,7 +28,7 @@ DEBUG = True
 ALLOWED_HOSTS = ["*"]
 
 
-REST_FRAMEWORK = {
+REST_FRAMEWORK = { #configuração para a biblioteca rest framework
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
@@ -37,9 +37,9 @@ REST_FRAMEWORK = {
     ],
 }
 
-SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+SIMPLE_JWT = { 
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30), #tempo de vida do token de acesso
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1), #tempo de vida do token de atualização  
 }
 
 # Application definition
@@ -51,9 +51,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'denuncIA',
-    'rest_framework',
-    'corsheaders'
+    'denuncIA', #aplicação principal da aplicacao
+    'rest_framework', #a biblioteca rest framework nos fornecesse funcionalidades importantes, portanto deve estar listada como um app instalado
+    'corsheaders' #cors permite a gente acessar a rota do front e da api msm sendo rotas diferentes.
 ]
 
 MIDDLEWARE = [
@@ -72,7 +72,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [], #nao estamos usando template, e sim react
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -139,5 +139,5 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = True #É aqui onde o cors libera acessarmos as rotas do front e da api mesmo  que ambas sejam dferentes.
 CORS_ALLOW_CREDENTIALS = True

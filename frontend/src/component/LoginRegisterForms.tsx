@@ -6,7 +6,7 @@ import "../styles/LoginRegisterForm.css"
 
 interface FormProps {
     route: string;
-    method: "login" | "register"; // Use um Union Type para maior segurança
+    method: "login" | "register" | "registerGestorP"; // Use um Union Type para maior segurança
 }
 
 function LoginRegisterForm({ route, method } : FormProps) {
@@ -62,6 +62,8 @@ function LoginRegisterForm({ route, method } : FormProps) {
             <button className="form-button" type="submit">
                 {name}
             </button>
+
+            <a href="">É um gestor público? Clique aqui</a>
         </form>
     );
 }

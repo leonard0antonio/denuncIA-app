@@ -3,7 +3,7 @@ import { type InternalAxiosRequestConfig }  from "axios";
 import { ACESS_TOKEN } from "../constants";
 
 const api = axios.create({
-baseURL: "http://localhost:8000", // Django REST depois
+baseURL: "http://localhost:8000", 
 headers: {
 "Content-Type": "application/json",
 },

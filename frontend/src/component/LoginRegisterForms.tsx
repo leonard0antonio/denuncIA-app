@@ -1,12 +1,12 @@
 import { useState } from "react";
 import api from "../api/client";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom"; // Import Link
 import { ACESS_TOKEN, REFRESH_TOKEN } from "../constants";
 import "../styles/LoginRegisterForm.css"
 
 interface FormProps {
     route: string;
-    method: "login" | "register" | "registerGestorP"; // Use um Union Type para maior segurança
+    method: "login" | "register" | "registerGestorP";
 }
 
 function LoginRegisterForm({ route, method } : FormProps) {
@@ -19,24 +19,19 @@ function LoginRegisterForm({ route, method } : FormProps) {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         setLoading(true);
-        e.preventDefault();                                                     
+        e.preventDefault();
 
         try {
             const res = await api.post(route, { username, password })
             if (method === "login") {
                 localStorage.setItem(ACESS_TOKEN, res.data.access);
                 localStorage.setItem(REFRESH_TOKEN, res.data.refresh);
-            
-               const tokenCompleto = localStorage.getItem(ACESS_TOKEN);
-                console.log(tokenCompleto);
-
-          
                 navigate("/home")
             } else {
                 navigate("/login")
             }
         } catch (error) {
-            alert(error)
+            alert("Erro: " + error)
         } finally {
             setLoading(false)
         }
@@ -59,11 +54,21 @@ function LoginRegisterForm({ route, method } : FormProps) {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
             />
-            <button className="form-button" type="submit">
-                {name}
+            <button className="form-button" type="submit" disabled={loading}>
+                {loading ? "Carregando..." : name}
             </button>
 
-            <a href="">É um gestor público? Clique aqui</a>
+            {method === "login" && (
+                <div style={{ marginTop: "10px", textAlign: "center" }}>
+                    <Link to="/gestor/register" style={{ color: "#007bff", textDecoration: "none" }}>
+                        É um gestor público? Clique aqui
+                    </Link>
+                    <br />
+                    <Link to="/register" style={{ color: "#007bff", textDecoration: "none", fontSize: "0.9em" }}>
+                        Não tem conta? Cadastre-se
+                    </Link>
+                </div>
+            )}
         </form>
     );
 }

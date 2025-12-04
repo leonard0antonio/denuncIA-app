@@ -10,6 +10,7 @@ import Header from "../component/Header";
 import ProtectedRoute from "../component/ProtectedRoute";
 import Login from "../pages/loginRegister/Login";
 import Register from "../pages/loginRegister/Register";
+import RegisterGestorP from "../pages/loginRegister/RegisterGestorP";
 
 type Props = {
   toggleTheme: () => void;
@@ -32,6 +33,8 @@ export default function Router({ toggleTheme, isDark }: Props) {
       <Header toggleTheme={toggleTheme} isDark={isDark} />
 
       <Routes>
+        <Route path="/" element={<Navigate to="/login" replace />} />
+
         <Route
           path="/home"
           element={
@@ -43,9 +46,11 @@ export default function Router({ toggleTheme, isDark }: Props) {
 
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<RegisterAndLogout />} />
+        
+        <Route path="/gestor/register" element={<RegisterGestorP />} />
+        
         <Route path="/logout" element={<Logout />} />
 
-        <Route path="/" element={<Home />} />
         <Route path="/denuncias" element={<ReportList />} />
         <Route path="/reports/new" element={<ReportCreate />} />
         <Route path="/denuncias/:protocolo" element={<ReportDetail />} />

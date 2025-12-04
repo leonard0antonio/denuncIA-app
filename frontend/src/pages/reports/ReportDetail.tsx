@@ -17,8 +17,7 @@ type Denuncia = {
   descricao: string;
   latitude: number;
   longitude: number;
-//  image?: string | null;
-// updated_at?: string;
+  foto?: string | null; // Alterado de 'image' para 'foto' para corresponder ao backend
 };
 
 export default function ReportDetail() {
@@ -27,19 +26,20 @@ export default function ReportDetail() {
 
   useEffect(() => {
     async function load() { 
-      let found;
-      let itemFromLocalStorage = null;
+      let found: Denuncia | null = null;
 
+      // 1. Tenta buscar do LocalStorage (onde 'foto' estaria em Base64)
       const arr = JSON.parse(localStorage.getItem("denuncias") || "[]") as Denuncia[];
-      itemFromLocalStorage = arr.find((x) => x.protocolo === protocolo) || null;
+      const itemFromLocalStorage = arr.find((x) => x.protocolo === protocolo) || null;
       found = itemFromLocalStorage;
       
-        if (found == null){
+      // 2. Se não estiver no LocalStorage, busca da API (onde 'foto' virá como URL)
+      if (found == null){
           try{
-        const response = await api.get(`api/denuncias/${protocolo}/`);
-        found = response.data as Denuncia;
+            const response = await api.get(`api/denuncias/${protocolo}/`);
+            found = response.data as Denuncia;
           } catch (error) {
-                    console.error("Erro ao carregar denúncia:", error);
+            console.error("Erro ao carregar denúncia:", error);
           }
       };
 
@@ -66,7 +66,12 @@ export default function ReportDetail() {
           <Label>Local:</Label> {r?.latitude}, {r?.longitude}
         </Text>
 
-     
+        {r?.foto && (
+          <ImageBox>
+            <Image src={r.foto} alt={`Foto da denúncia ${r.categoria}`} />
+          </ImageBox>
+        )}
+        
       </Container>
     </Layout>
   );

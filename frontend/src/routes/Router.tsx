@@ -11,9 +11,11 @@ import NearbyReports from "../pages/reports/NearbyReports";
 import Header from "../component/Header";
 import ProtectedRoute from "../component/ProtectedRoute";
 import Login from "../pages/loginRegister/Login";
-import LoginGestorPublico from "../pages/loginRegister/RegisterGestorP";
 import Register from "../pages/loginRegister/Register";
+import AuthSelection from "../pages/loginRegister/AuthSelection";
+
 import RegisterGestorP from "../pages/loginRegister/RegisterGestorP";
+import LoginGestorPublico from "../pages/loginRegister/LoginGestorP"; 
 
 type Props = {
   toggleTheme: () => void;
@@ -22,7 +24,7 @@ type Props = {
 
 function Logout() {
   localStorage.clear();
-  return <Navigate to="/login" />;
+  return <Navigate to="/auth" />;
 }
 
 function RegisterAndLogout(){
@@ -37,28 +39,20 @@ export default function Router({ toggleTheme, isDark }: Props) {
 
       <Routes>
         <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
-        
-        <Route path="/login" element={<Login />} />
-        <Route path="/login/gestor" element={<LoginGestorPublico/>} />
-        <Route path="/register" element={<RegisterAndLogout />} />
-        
-        {/* CORREÇÃO: Padronizando a rota de cadastro de gestor */}
-        <Route path="/gestor/register" element={<RegisterGestorP />} />
-        
+        <Route path="/auth" element={<AuthSelection />} />  
+        <Route path="/login/citizen" element={<Login />} />
+        <Route path="/register/citizen" element={<RegisterAndLogout />} />
+        <Route path="/login/gestor" element={<LoginGestorPublico />} />
+        <Route path="/gestor/register" element={<RegisterGestorP />} />      
         <Route path="/logout" element={<Logout />} />
-
-        <Route path="/" element={<Navigate to="/login" replace />} />
-        
+        <Route path="/" element={<Navigate to="/auth" replace />} />
         <Route path="/denuncias" element={<ReportList />} />
         <Route path="/denuncias/proximas" element={<NearbyReports />} />
-        
         <Route path="/ranking" element={<Ranking />} />
         <Route path="/reports/new" element={<ReportCreate />} />
         <Route path="/denuncias/:protocolo" element={<ReportDetail />} />
-
         <Route path="/denuncias/:protocolo/edit" element={<ReportEdit />} />
         <Route path="/denuncias/:protocolo/delete" element={<ReportDelete />} />
-
         <Route path="/denuncias/:protocolo/comment" element={<ReportComment/>}/>
       </Routes>
     </>

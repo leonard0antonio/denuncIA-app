@@ -1,6 +1,6 @@
 import { type ReactNode } from "react";
-import { Wrapper } from "../styles/ImageUpload.styles";
+import { Container } from "../styles/layout.styles"; 
 
 export default function Layout({ children }: { children: ReactNode }) {
-  return <Wrapper>{children}</Wrapper>;
+  return <Container>{children}</Container>;
 }

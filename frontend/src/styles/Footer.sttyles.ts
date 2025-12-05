@@ -1,11 +1,17 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.footer`
+  width: 100%;
   margin-top: 50px;
-  padding: 50px 20px;
   background: var(--card);
   border-top: 1px solid var(--border);
   color: var(--text);
+`;
+
+export const Content = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 50px 24px;
 `;
 
 export const Grid = styled.div`

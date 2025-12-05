@@ -1,6 +1,4 @@
-// --- EXISTENTES (não alterei nada) ---
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -21,11 +19,6 @@ export const Empty = styled.p`
   margin-top: 10px;
 `;
 
-export const ItemLink = styled(Link)`
-  text-decoration: none;
-  color: inherit;
-`;
-
 export const Card = styled.div`
   background: var(--card);
   border: 1px solid var(--border);
@@ -33,10 +26,10 @@ export const Card = styled.div`
   padding: 16px 20px;
   transition: 0.15s ease;
   cursor: pointer;
-
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
+  position: relative; 
 
   &:hover {
     background: var(--hover);
@@ -44,24 +37,10 @@ export const Card = styled.div`
   }
 `;
 
-export const CardTitle = styled.h3`
-  margin: 0;
-  font-size: 20px;
-  font-weight: 600;
-  color: var(--text);
-`;
-
-export const CardDesc = styled.p`
-  margin: 0;
-  color: var(--muted);
-  font-size: 15px;
-  line-height: 1.5;
-`;
-
-export const Protocol = styled.small`
-  margin-top: 5px;
-  color: var(--primary);
-  font-weight: 600;
+export const HeaderRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 export const IconRow = styled.div`
@@ -81,7 +60,41 @@ export const CardIcon = styled.div`
   color: #fff;
 `;
 
-// --- 🔥 AQUI COMEÇA O NOVO PARA EDITAR/EXCLUIR ---
+export const CardTitle = styled.h3`
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text);
+`;
+
+export const StatusBadge = styled.span<{ status: string }>`
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #fff;
+  background-color: ${({ status }) => {
+    switch (status) {
+      case "Resolvido": return "#2e7d32"; 
+      case "Rejeitado": return "#c62828"; 
+      default: return "#f9a825"; 
+    }
+  }};
+`;
+
+export const CardDesc = styled.p`
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+`;
+
+export const Protocol = styled.small`
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 12px;
+`;
 
 export const Actions = styled.div`
   display: flex;
@@ -99,7 +112,6 @@ export const ActionBtn = styled.button<{ danger?: boolean }>`
   font-size: 14px;
   cursor: pointer;
   color: #fff;
-
   background: ${({ danger }) => (danger ? "var(--danger)" : "var(--primary)")};
   transition: 0.2s ease;
 

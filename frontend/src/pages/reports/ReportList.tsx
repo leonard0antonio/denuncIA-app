@@ -7,15 +7,17 @@ import {
   Title,
   Empty,
   Card,
-  CardTitle,
-  CardDesc,
-  Protocol,
+  HeaderRow,
   IconRow,
   CardIcon,
+  CardTitle,
+  StatusBadge,
+  CardDesc,
+  Protocol,
   Actions,
   ActionBtn,
 } from "../../styles/ReportList.Styles";
-import { FiFileText, FiEdit, FiTrash2, FiMessageSquare  } from "react-icons/fi";
+import { FiFileText, FiEdit, FiTrash2, FiMessageSquare } from "react-icons/fi";
 
 type Denuncia = {
   protocolo: string;
@@ -26,69 +28,64 @@ type Denuncia = {
 };
 
 export default function ReportList() {
-  //const [data, setData] = useState<any[]>([]);
   const [data, setData] = useState<Denuncia[]>([]);
- useEffect(() => {
-   async function load() {
 
-      const response = await api.get<Denuncia[]>(`api/denuncias/`)
+  useEffect(() => {
+    async function load() {
+      const response = await api.get<Denuncia[]>(`api/denuncias/`);
       const found = response.data;
       const ordered = [...found].reverse();
       setData(ordered);
     }
-
     load();
   }, []);
 
-
   return (
-     <Layout>
+    <Layout>
       <Title>Denúncias locais</Title>
 
       <Wrapper>
-        {data.length === 0 && <Empty>Nenhuma denúncia local.</Empty>}
+        {data.length === 0 && <Empty>Nenhuma denúncia encontrada.</Empty>}
 
         {data.map((d) => (
           <Card key={d.protocolo}>
-            <Link
-              to={`/denuncias/${d.protocolo}`}
-              style={{ textDecoration: "none", color: "inherit" }}
-            >
-              <IconRow>
-                <CardIcon>
-                  <FiFileText size={18} />
-                </CardIcon>
-                <CardTitle>{d.categoria}</CardTitle>
-              </IconRow>
+            <Link to={`/denuncias/${d.protocolo}`} style={{ textDecoration: "none", color: "inherit", display: "flex", flexDirection: "column", gap: "10px" }}>
+              
+              <HeaderRow>
+                <IconRow>
+                  <CardIcon>
+                    <FiFileText size={18} />
+                  </CardIcon>
+                  <CardTitle>{d.categoria}</CardTitle>
+                </IconRow>
+
+                <StatusBadge status={d.status || "Em análise"}>
+                  {d.status || "Em análise"}
+                </StatusBadge>
+              </HeaderRow>
 
               <CardDesc>{d.descricao}</CardDesc>
-              <Protocol>Protocolo: {d.protocolo}</Protocol><br />
-              {d.status && <Protocol>Status: **{d.status.toUpperCase()}**</Protocol>}
+              <Protocol>Protocolo: {d.protocolo}</Protocol>
             </Link>
 
             <Actions>
               <Link to={`/denuncias/${d.protocolo}/edit`}>
                 <ActionBtn>
-                  <FiEdit size={16} />
-                  Editar
+                  <FiEdit size={16} /> Editar
                 </ActionBtn>
               </Link>
 
               <Link to={`/denuncias/${d.protocolo}/delete`}>
                 <ActionBtn danger>
-                  <FiTrash2 size={16} />
-                  Excluir
+                  <FiTrash2 size={16} /> Excluir
                 </ActionBtn>
               </Link>
 
               <Link to={`/denuncias/${d.protocolo}/comment`}>
                 <ActionBtn>
-                  <FiMessageSquare size={16} />
-                  Comentar
+                  <FiMessageSquare size={16} /> Comentar
                 </ActionBtn>
               </Link>
-              
-
             </Actions>
           </Card>
         ))}

@@ -17,7 +17,8 @@ type Denuncia = {
   descricao: string;
   latitude: number;
   longitude: number;
-  foto?: string | null; // Alterado de 'image' para 'foto' para corresponder ao backend
+  status?: string;
+  foto?: string | null;
 };
 
 export default function ReportDetail() {
@@ -26,30 +27,21 @@ export default function ReportDetail() {
 
   useEffect(() => {
     async function load() { 
-      let found: Denuncia | null = null;
-
-      // 1. Tenta buscar do LocalStorage (onde 'foto' estaria em Base64)
-      const arr = JSON.parse(localStorage.getItem("denuncias") || "[]") as Denuncia[];
-      const itemFromLocalStorage = arr.find((x) => x.protocolo === protocolo) || null;
-      found = itemFromLocalStorage;
-      
-      // 2. Se não estiver no LocalStorage, busca da API (onde 'foto' virá como URL)
-      if (found == null){
-          try{
-            const response = await api.get(`api/denuncias/${protocolo}/`);
-            found = response.data as Denuncia;
-          } catch (error) {
-            console.error("Erro ao carregar denúncia:", error);
-          }
-      };
-
-     setR(found)
-
+      try{
+        const response = await api.get(`api/denuncias/${protocolo}/`);
+        setR(response.data);
+      } catch (error) {
+        console.error("Erro ao carregar denúncia:", error);
+      }
     }
-
     load();
-  }, [protocolo]);                                    
+  }, [protocolo]);
 
+  const getImageUrl = (path: string | null | undefined) => {
+    if (!path) return "";
+    if (path.startsWith("data:") || path.startsWith("http")) return path;
+    return `http://localhost:8000${path}`;
+  };
 
   return (
     <Layout>
@@ -63,12 +55,31 @@ export default function ReportDetail() {
         </Text>
 
         <Text>
+          <Label>Status:</Label> 
+          <span style={{
+              marginLeft: 8, 
+              padding: "4px 8px", 
+              borderRadius: "4px",
+              background: "var(--primary)", 
+              color: "white",
+              fontSize: "0.9em",
+              fontWeight: "bold"
+          }}>
+            {r?.status || "Em análise"}
+          </span>
+        </Text>
+
+        <Text>
           <Label>Local:</Label> {r?.latitude}, {r?.longitude}
         </Text>
 
         {r?.foto && (
           <ImageBox>
-            <Image src={r.foto} alt={`Foto da denúncia ${r.categoria}`} />
+            <Image 
+              src={getImageUrl(r.foto)} 
+              alt={`Foto da denúncia`} 
+              onError={(e) => e.currentTarget.style.display = 'none'}
+            />
           </ImageBox>
         )}
         

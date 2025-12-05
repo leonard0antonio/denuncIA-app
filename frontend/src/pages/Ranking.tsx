@@ -15,7 +15,7 @@ export default function Ranking() {
   useEffect(() => {
     api.get("api/ranking/")
       .then((res) => setRanking(res.data))
-      .catch((err) => console.error("Erro ao carregar ranking", err))
+      .catch((err) => console.error("Erro", err))
       .finally(() => setLoading(false));
   }, []);
 
@@ -23,47 +23,30 @@ export default function Ranking() {
     <Layout>
       <div style={{ background: "var(--card)", padding: "24px", borderRadius: "12px", border: "1px solid var(--border)" }}>
         <h2 style={{ display: "flex", alignItems: "center", gap: "10px", marginBottom: "20px" }}>
-          <Trophy color="#FFD700" size={28} /> Ranking de Cidadãos Ativos
+          <Trophy color="#FFD700" size={28} /> Ranking
         </h2>
         
-        {loading ? (
-          <p>Carregando...</p>
-        ) : (
+        {loading ? <p>Carregando...</p> : (
           <table style={{ width: "100%", borderCollapse: "collapse" }}>
             <thead>
               <tr style={{ borderBottom: "2px solid #eee", textAlign: "left" }}>
-                <th style={{ padding: "10px" }}>Posição</th>
+                <th style={{ padding: "10px" }}>Pos</th>
                 <th style={{ padding: "10px" }}>Usuário</th>
-                <th style={{ padding: "10px", textAlign: "center" }}>Denúncias Válidas</th>
+                <th style={{ padding: "10px", textAlign: "center" }}>Válidas</th>
               </tr>
             </thead>
             <tbody>
               {ranking.map((user, index) => (
                 <tr key={user.username} style={{ borderBottom: "1px solid #f0f0f0" }}>
-                  <td style={{ padding: "12px", fontWeight: "bold", fontSize: "1.1em" }}>
-                    {index + 1}º
-                  </td>
+                  <td style={{ padding: "12px", fontWeight: "bold" }}>{index + 1}º</td>
                   <td style={{ padding: "12px" }}>{user.username}</td>
                   <td style={{ padding: "12px", textAlign: "center" }}>
-                    <span style={{ 
-                      background: "var(--primary)", 
-                      color: "white", 
-                      padding: "4px 10px", 
-                      borderRadius: "12px", 
-                      fontSize: "0.9em" 
-                    }}>
+                    <span style={{ background: "var(--primary)", color: "white", padding: "4px 10px", borderRadius: "12px" }}>
                       {user.total_denuncias}
                     </span>
                   </td>
                 </tr>
               ))}
-              {ranking.length === 0 && (
-                <tr>
-                  <td colSpan={3} style={{ padding: "20px", textAlign: "center", color: "#888" }}>
-                    Nenhum dado disponível ainda.
-                  </td>
-                </tr>
-              )}
             </tbody>
           </table>
         )}

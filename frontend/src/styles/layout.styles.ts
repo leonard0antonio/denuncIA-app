@@ -1,15 +1,17 @@
 import styled from "styled-components";
 
-export const Wrapper = styled.div`
-  max-width: 1100px;
-  margin: 24px auto;
-  padding: 24px;
-  background-color: #f9f9f9;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-
-  &:hover {
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+export const Container = styled.div`
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 100px; 
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-bottom: 40px;
+  width: 100%;
+  
+  @media (max-width: 768px) {
+    padding-top: 90px;
+    padding-left: 16px;
+    padding-right: 16px;
   }
 `;

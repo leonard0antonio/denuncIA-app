@@ -1,6 +1,6 @@
 import { useState } from "react";
 import api from "../api/client";
-import { useNavigate, Link } from "react-router-dom"; // Importe Link aqui
+import { useNavigate, Link } from "react-router-dom";
 import { ACESS_TOKEN, REFRESH_TOKEN } from "../constants";
 import "../styles/LoginRegisterForm.css"
 
@@ -12,11 +12,11 @@ interface FormProps {
 function LoginRegisterForm({ route, method } : FormProps) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [cra_de_gestor, setCra_Gestor] = useState("")
+    const [cra_de_gestor, setCra_Gestor] = useState("");
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
-    const name = method === "login" ? "Login" : "Register";
+    const name = method.includes("login") ? "Entrar" : "Cadastrar";
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         setLoading(true);
@@ -26,70 +26,85 @@ function LoginRegisterForm({ route, method } : FormProps) {
         if (method === "login" || method === "register") {
             dataToSend = { username, password };
         } else if (method === "registerGestorPublico") {
-            dataToSend = { username, password, cra_de_gestor }; // Envia cra_de_gestor no nível raiz conforme a API espera
+            dataToSend = { username, password, cra_de_gestor }; 
         } else if (method === "loginGestorPublico"){
-            dataToSend = { cra_de_gestor: cra_de_gestor, password: password };
+            dataToSend = { username, cra_de_gestor, password };
         }
 
         try {
             const res = await api.post(route, dataToSend);
+            
             if (method.includes("login")) {
                 localStorage.setItem(ACESS_TOKEN, res.data.access);
                 localStorage.setItem(REFRESH_TOKEN, res.data.refresh);
-                navigate("/home")
+
+                if (method === "loginGestorPublico") {
+                    localStorage.setItem("userType", "gestor");
+                } else {
+                    localStorage.setItem("userType", "citizen");
+                }
+
+                navigate("/home");
             } else {
-                alert("Cadastro realizado! Faça login.");
-                navigate("/login");
+                alert("Cadastro realizado com sucesso! Faça login.");
+                if (method === "registerGestorPublico") {
+                    navigate("/login/gestor");
+                } else {
+                    navigate("/login/citizen");
+                }
             }
-        } catch (error) {
+        } catch (error: any) {
             console.error(error);
-            alert("Erro na operação. Verifique os dados.");
+            const errorMsg = error.response?.data?.detail 
+                || JSON.stringify(error.response?.data) 
+                || "Erro na operação. Verifique os dados.";
+            alert(errorMsg);
         } finally {
             setLoading(false)
         }
     };
 
-    if(method === "registerGestorPublico"){
+    if(method === "registerGestorPublico" || method === "loginGestorPublico"){
+        const isRegister = method === "registerGestorPublico";
         return(
            <form onSubmit={handleSubmit} className="form-container">
-             <h1>Cadastro Gestor Público</h1>
-            <input className="form-input" type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" />
-            <input className="form-input" type="text" value={cra_de_gestor} onChange={(e) => setCra_Gestor(e.target.value)} placeholder="CRA de gestor" />
-            <input className="form-input" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
-            <button className="form-button" type="submit" disabled={loading}>{loading ? "Carregando..." : "Cadastrar"}</button> 
-            <Link to="/login/gestor" style={{marginTop: 10, color: '#007bff'}}>Já possui uma conta? Clique aqui</Link>
+             <h1>{isRegister ? "Cadastro de Gestor" : "Login de Gestor"}</h1>
+             
+             <input className="form-input" type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Usuário" />
+             <input className="form-input" type="text" value={cra_de_gestor} onChange={(e) => setCra_Gestor(e.target.value)} placeholder="CRA (Registro)" />
+             <input className="form-input" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Senha" />
+             
+             <button className="form-button" type="submit" disabled={loading}>
+                {loading ? "Processando..." : name}
+             </button> 
+             
+             <div style={{marginTop: 15, textAlign: 'center'}}>
+                 <Link to={isRegister ? "/login/gestor" : "/gestor/register"} style={{color: '#007bff', display: 'block', marginBottom: 5}}>
+                    {isRegister ? "Já possui conta? Fazer Login" : "Não possui conta? Cadastrar Gestor"}
+                 </Link>
+                 <Link to="/auth" style={{color: '#6c757d', fontSize: '0.9em'}}>Voltar para Seleção</Link>
+             </div>
            </form>
         );
     }
 
-    if(method === "loginGestorPublico"){
-        return(
-           <form onSubmit={handleSubmit} className="form-container">
-             <h1>Login Gestor Público</h1>
-            <input className="form-input" type="text" value={cra_de_gestor} onChange={(e) => setCra_Gestor(e.target.value)} placeholder="CRA de gestor" />
-            <input className="form-input" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
-            <button className="form-button" type="submit" disabled={loading}>{loading ? "Entrando..." : "Logar"}</button> 
-            <Link to="/login" style={{marginTop: 10, color: '#007bff'}}>Não é um gestor público? Clique aqui</Link>
-            <br />
-            <Link to="/gestor/register" style={{marginTop: 5, color: '#007bff'}}>Não possui cadastro? Clique aqui</Link>
-           </form>
-        );
-    }
-
+    const isRegister = method === "register";
     return (
         <form onSubmit={handleSubmit} className="form-container">
-            <h1>{name}</h1>
-            <input className="form-input" type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" />
-            <input className="form-input" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
-            <button className="form-button" type="submit" disabled={loading}>{loading ? "Carregando..." : name}</button>
+            <h1>{isRegister ? "Cadastro Cidadão" : "Login Cidadão"}</h1>
+            <input className="form-input" type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Usuário" />
+            <input className="form-input" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Senha" />
+            
+            <button className="form-button" type="submit" disabled={loading}>
+                {loading ? "Processando..." : name}
+            </button>
 
-            {method === "login" && (
-                <>
-                    <Link to="/login/gestor" style={{marginTop: 10, color: '#007bff'}}>É um gestor público? Clique aqui</Link>
-                    <br />
-                    <Link to="/register" style={{marginTop: 5, color: '#007bff'}}>Não possui cadastro? Clique aqui</Link>
-                </>
-            )}
+            <div style={{marginTop: 15, textAlign: 'center'}}>
+                <Link to={isRegister ? "/login/citizen" : "/register/citizen"} style={{color: '#007bff', display: 'block', marginBottom: 5}}>
+                    {isRegister ? "Já possui conta? Fazer Login" : "Não possui conta? Cadastrar-se"}
+                </Link>
+                <Link to="/auth" style={{color: '#6c757d', fontSize: '0.9em'}}>Voltar para Seleção</Link>
+            </div>
         </form>
     );
 }

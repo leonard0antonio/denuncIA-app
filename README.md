@@ -153,5 +153,4 @@ Sinta-se à vontade para contribuir, abrir issues ou sugerir melhorias!
 * **Leonardo Antonio**
 * **Renato Lourenço**
 
----
 

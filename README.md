@@ -1,39 +1,158 @@
-# 🚨 denuncIA-app
+# 🧠 denuncIA-app — Sistema de Denúncias
 
-Aplicação simples em desenvolvimento para envio e gerenciamento de denúncias.
+## 📌 Descrição do Projeto
 
-## 📌 Sobre o projeto
+### Introdução
 
-O **denuncIA-app** é uma aplicação full-stack composta por:
+* **Nome do projeto:** *denuncIA-app*
+* **Contexto:** Projeto em desenvolvimento (branch `dev`), conectando um **frontend moderno** com **backend Django** para registro, listagem e gerenciamento de denúncias.
+* **Objetivo:** Criar uma aplicação full-stack onde usuários enviam denúncias e o backend gerencia, armazena e controla permissões (usuário comum × administrador).
+* **Motivações:**
 
-* **Frontend** rodando com `npm run dev`
-* **Backend** em **Django**
+  * Praticar integração **React/TSX + Django REST**
+  * Criar um sistema real com fluxo completo (CRUD + permissões)
+  * Fortalecer portfólio com um projeto full-stack
 
-O objetivo é permitir que usuários enviem denúncias enquanto o backend armazena e processa essas informações.
+---
 
-## 🛠️ Tecnologias
+## ⚙️ Principais Funcionalidades do Projeto
 
-* **Django** (Python)
-* **Node.js / npm**
-* **JavaScript**
+### 🔹 Frontend (React / JavaScript / TypeScript)
 
-## 🚀 Como rodar
+* Interface completa para denúncias
+* Formulários para criação e edição
+* Listagem reativa
+* Restrição de edição e exclusão conforme o papel do usuário
+* Componentes reutilizáveis
 
-### Backend:
+### 🔹 Backend (Django + Django REST Framework)
+
+* API REST para CRUD de denúncias
+* Modelos representando denúncias, usuários e permissões
+* Autenticação e autorização (em expansão)
+* Middleware para diferenciar **ADM** e **USER**
+
+### 🔹 Integração Front–Back
+
+* Comunicação via chamadas HTTP (fetch/axios)
+* Front rodando com `npm run dev`
+* Backend rodando em Django simultaneamente
+
+---
+
+## 🛠️ Tecnologias Utilizadas
+
+* **Python + Django**
+* **Django REST Framework**
+* **JavaScript / TypeScript**
+* **React**
+* **npm**
+* **Git / GitHub**
+
+---
+
+## 🔄 Fluxos do Sistema
+
+### 📥 **UserFlow — Fluxo do Usuário**
+
+Representa o caminho entre:
+Login → Criar Denúncia → Listar → Editar/Excluir → Papel de ADM × Usuário.
+
+![UserFlow](./UserFlow.png)
+
+---
+
+### 🔁 **DataFlow — Fluxo de Dados (ADM × Usuário)**
+
+Mostra o trânsito de dados entre:
+Front-end ↔ API ↔ Middleware de Permissões ↔ Banco de Dados.
+
+Inclui:
+
+* Usuário só vê/edita/exclui **denúncias próprias**
+* ADM vê, edita e exclui **todas**
+
+![DataFlow](./DataFlow.png)
+
+---
+
+## 📚 Lições Aprendidas
+
+* Estruturação de projeto **full-stack desacoplado**
+* Fluxo completo **Frontend ↔ Backend Django REST**
+* Boas práticas de comunicação entre serviços
+* Modelagem de dados e permissões avançadas
+* Gerenciamento de estado e formulários no front
+
+---
+
+## 🔍 Funcionalidades em Desenvolvimento
+
+* Autenticação (login, roles ADM/USER)
+* Filtro de denúncias
+* Painel administrativo
+* Notificações em tempo real
+* Dashboard futuro
+
+---
+
+## ✨ Próximos Passos
+
+* Versionamento da API
+* Deploy (Vercel + Railway / Render / DigitalOcean)
+
+---
+
+## 🚀 Como rodar localmente
+
+### 1. Clone o repositório
 
 ```bash
+git clone https://github.com/leonard0antonio/denuncIA-app.git
+```
+
+---
+
+### 2. Backend (Django)
+
+```bash
+cd backend
+pip install -r requirements.txt
+python manage.py migrate
 python manage.py runserver
 ```
 
-### Frontend:
+---
+
+### 3. Frontend (React)
 
 ```bash
+cd frontend
 npm install
 npm run dev
 ```
 
-## 🔄 Desenvolvimento
+---
 
-A branch **main** contém a estrutura inicial.
-👉 **Para acompanhar o desenvolvimento atualizado, acesse a branch `dev`.**
+### 4. Acessos
+
+* Frontend: **[http://localhost:3000](http://localhost:3000)**
+* Backend: **[http://localhost:8000](http://localhost:8000)**
+
+---
+
+## 🏁 Final
+
+Este projeto está evoluindo para uma solução completa de denúncias, com foco em usabilidade, segurança, fluxo realista e arquitetura profissional.
+Sinta-se à vontade para contribuir, abrir issues ou sugerir melhorias!
+
+---
+
+## 👥 Colaboradores
+
+* **Jose Miguel**
+* **Leonardo Antonio**
+* **Renato Lourenço**
+
+---
 

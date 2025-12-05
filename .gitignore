@@ -1,0 +1,39 @@
+## Configurações do Sistema Operacional (OS) ##
+.DS_Store
+Thumbs.db
+
+## Ambientes Virtuais ##
+.venv
+/venv
+/env
+/bin
+
+## Arquivos de Banco de Dados ##
+db.sqlite3
+
+## Arquivos de Mídia e Static (se não for versionar) ##
+# Se você tiver pastas para uploads (como imagens de denúncias)
+/media/
+
+## Python (Backend Django) ##
+*.pyc
+__pycache__/
+*.log
+local_settings.py  # Se você usar configurações locais sensíveis
+
+## Node.js (Frontend React) ##
+# A pasta de dependências do Node.js é grande e gerada automaticamente
+/frontend/node_modules/ 
+
+# A pasta onde o React/Vite/Webpack constrói o projeto
+/frontend/dist/ 
+/frontend/build/
+
+# Logs de depuração
+npm-debug.log
+yarn-error.log
+
+# Variáveis de Ambiente (CRÍTICO PARA SEGURANÇA)
+# Os arquivos .env contêm chaves secretas (SECRET_KEY, chaves de API, etc.)
+.env
+.env.*

@@ -4,6 +4,7 @@ import Layout from "../../component/Layout";
 import Map from "../../component/Map";
 import api from "../../api/client";
 import { Card, Title, Field, Label, Input, TextArea, Select, SaveButton } from "../../styles/ReportEdit.Styles";
+import { v4 as uuidv4 } from "uuid";
 
 type Denuncia = {
   protocolo: string;
@@ -25,6 +26,7 @@ export default function ReportEdit() {
   const [pos, setPos] = useState<[number, number] | null>(null);
   
   const isGestor = localStorage.getItem("userType") === "gestor";
+  const protocoloUUID = uuidv4();
 
   useEffect(() => {
    async function load() {
@@ -48,6 +50,7 @@ export default function ReportEdit() {
     try {
         const formData = new FormData();
         
+        formData.append("protocolo", protocoloUUID);
         formData.append("categoria", categoria);
         formData.append("descricao", descricao);
         formData.append("latitude", String(pos[0]));

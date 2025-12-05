@@ -49,7 +49,7 @@ class DenunciaSerializer(serializers.ModelSerializer):
         model = Denuncia
         fields = ["protocolo", "categoria", "descricao", "latitude", "longitude", "status",
                   "autor", "created_at", "foto"]
-        read_only_fields = ['autor', 'protocolo']
+        read_only_fields = ['autor']
 
 class ComentarioSerializer(serializers.ModelSerializer):
     autor_nome = serializers.CharField(source='autor.username', read_only=True)

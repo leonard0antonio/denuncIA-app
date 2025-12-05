@@ -16,17 +16,23 @@ export default function Header({
   return (
     <Bar>
       <LeftGroup>
-        <NavLink to="/" style={{ fontWeight: 700 }}>
+        <NavLink to="/home" style={{ fontWeight: 700, fontSize: "1.2rem" }}>
           DenuncIA
         </NavLink>
-        <NavLink to="/denuncias/">Denúncias</NavLink>
+        <NavLink to="/denuncias">Minhas Denúncias</NavLink>
+        <NavLink to="/denuncias/proximas"> Denúncias Próximas </NavLink>
+        <NavLink to="/ranking">Ranking</NavLink>
       </LeftGroup>
 
       <Nav>
-        <NavLink to="/reports/new">Nova</NavLink>
+        <NavLink to="/reports/new" style={{background: "var(--primary)", color: "white", padding: "6px 12px", borderRadius: "6px"}}>
+          Nova Denúncia
+        </NavLink>
+        
+        <NavLink to="/logout" style={{color: "var(--danger)"}}>Sair</NavLink>
 
         <ThemeButton onClick={toggleTheme}>
-          {isDark ? "🌙 Dark" : "☀️ Light"}
+          {isDark ? "🌙" : "☀️"}
         </ThemeButton>
       </Nav>
     </Bar>

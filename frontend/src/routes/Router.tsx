@@ -6,9 +6,12 @@ import ReportDetail from "../pages/reports/ReportDetail";
 import ReportEdit from "../pages/reports/ReportEdit";
 import ReportDelete from "../pages/reports/ReportDelete";
 import ReportComment from "../pages/reports/ReportComment";
+import Ranking from "../pages/Ranking";
+import NearbyReports from "../pages/reports/NearbyReports";
 import Header from "../component/Header";
 import ProtectedRoute from "../component/ProtectedRoute";
 import Login from "../pages/loginRegister/Login";
+import LoginGestorPublico from "../pages/loginRegister/RegisterGestorP";
 import Register from "../pages/loginRegister/Register";
 import RegisterGestorP from "../pages/loginRegister/RegisterGestorP";
 
@@ -33,25 +36,23 @@ export default function Router({ toggleTheme, isDark }: Props) {
       <Header toggleTheme={toggleTheme} isDark={isDark} />
 
       <Routes>
-        <Route path="/" element={<Navigate to="/login" replace />} />
-
-        <Route
-          path="/home"
-          element={
-            <ProtectedRoute>
-              <Home />
-            </ProtectedRoute>
-          }
-        />
-
+        <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+        
         <Route path="/login" element={<Login />} />
+        <Route path="/login/gestor" element={<LoginGestorPublico/>} />
         <Route path="/register" element={<RegisterAndLogout />} />
         
+        {/* CORREÇÃO: Padronizando a rota de cadastro de gestor */}
         <Route path="/gestor/register" element={<RegisterGestorP />} />
         
         <Route path="/logout" element={<Logout />} />
 
+        <Route path="/" element={<Navigate to="/login" replace />} />
+        
         <Route path="/denuncias" element={<ReportList />} />
+        <Route path="/denuncias/proximas" element={<NearbyReports />} />
+        
+        <Route path="/ranking" element={<Ranking />} />
         <Route path="/reports/new" element={<ReportCreate />} />
         <Route path="/denuncias/:protocolo" element={<ReportDetail />} />
 
@@ -59,7 +60,6 @@ export default function Router({ toggleTheme, isDark }: Props) {
         <Route path="/denuncias/:protocolo/delete" element={<ReportDelete />} />
 
         <Route path="/denuncias/:protocolo/comment" element={<ReportComment/>}/>
-
       </Routes>
     </>
   );

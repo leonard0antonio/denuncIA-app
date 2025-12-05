@@ -5,7 +5,6 @@
 ### Introdução
 
 * **Nome do projeto:** *denuncIA-app*
-* **Contexto:** Projeto em desenvolvimento (branch `dev`), conectando um **frontend moderno** com **backend Django** para registro, listagem e gerenciamento de denúncias.
 * **Objetivo:** Criar uma aplicação full-stack onde usuários enviam denúncias e o backend gerencia, armazena e controla permissões (usuário comum × administrador).
 * **Motivações:**
 
